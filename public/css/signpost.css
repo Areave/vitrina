@@ -1,0 +1,60 @@
+.logo #logo {
+    object-fit: contain !important;
+}
+#header .logo {
+    padding: 5px !important;
+}
+#signposts {
+    padding: 4vw;
+    min-height: 90vh;
+    box-sizing: border-box;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+#signposts:after {
+    content: '';
+    display: block;
+    width: 100%;
+    clear: both;
+}
+#signposts > a {
+    display: inline-block;
+    width: 28vw;
+    height: 24vh;
+    text-align: center;
+    vertical-align: middle;
+    float: left;
+    margin-bottom: 4vw;
+    margin-right: 4vw;
+    font-size: 4vh;
+    background: #f7f7f7;
+    line-height: 24vh;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+}
+#signposts > a:nth-of-type(3n) {
+    margin-right: 0vw;
+}
+#signposts a img {
+    max-width: 80%;
+    vertical-align: middle;
+    max-height: 80%;
+}
+#signposts > #signpost_terminal {
+    line-height: 8vh;
+    padding-top: 4vh;
+    box-sizing: border-box;
+}
+iframe#iframe {
+    width: 100%;
+    border: 0;
+    box-sizing: border-box;
+    border-top: 1px solid #e2e2e2;
+    height: 90vh;
+}
+a.calendar:before {
+    content: '\f073';
+    font-family: fontawesome;
+    font-size: 2em;
+    color: #ff5300;
+    margin-right: 20px;
+    vertical-align: top;
+}

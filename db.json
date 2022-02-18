@@ -1,0 +1,328 @@
+{
+    "get_kiosk_collaborators": {
+        "data": [
+            {
+                "id": 100,
+                "name": "Mediuk"
+            },
+            {
+                "id": 101,
+                "name": "Mensikova"
+            },
+            {
+                "id": 102,
+                "name": "Mercelova"
+            },
+            {
+                "id": 103,
+                "name": "Merklova"
+            },
+            {
+                "id": 104,
+                "name": "Moravcova"
+            },
+            {
+                "id": 105,
+                "name": "Moravkova"
+            },
+            {
+                "id": 106,
+                "name": "Motycakova"
+            },
+            {
+                "id": 107,
+                "name": "Mrazova"
+            },
+            {
+                "id": 108,
+                "name": "Mullerova"
+            },
+            {
+                "id": 109,
+                "name": "Mullerova"
+            },
+            {
+                "id": 110,
+                "name": "Myhovych"
+            },
+            {
+                "id": 111,
+                "name": "Niemannova"
+            },
+            {
+                "id": 112,
+                "name": "Novakova"
+            },
+            {
+                "id": 113,
+                "name": "Novakova"
+            },
+            {
+                "id": 114,
+                "name": "Nyskovsky"
+            },
+            {
+                "id": 116,
+                "name": "Paitlova"
+            },
+            {
+                "id": 117,
+                "name": "Palasova"
+            },
+            {
+                "id": 118,
+                "name": "Paroubkova"
+            },
+            {
+                "id": 119,
+                "name": "Patkova"
+            },
+            {
+                "id": 120,
+                "name": "Patskan"
+            },
+            {
+                "id": 121,
+                "name": "Petrincova"
+            },
+            {
+                "id": 122,
+                "name": "Plskova"
+            },
+            {
+                "id": 123,
+                "name": "Pluharova"
+            },
+            {
+                "id": 124,
+                "name": "Pribylova"
+            },
+            {
+                "id": 126,
+                "name": "Randyskova"
+            },
+            {
+                "id": 127,
+                "name": "Rollerova"
+            },
+            {
+                "id": 128,
+                "name": "Rusnakova"
+            },
+            {
+                "id": 129,
+                "name": "Rysova"
+            },
+            {
+                "id": 130,
+                "name": "Radkova"
+            },
+            {
+                "id": 131,
+                "name": "Horvathova"
+            },
+            {
+                "id": 132,
+                "name": "Salej"
+            },
+            {
+                "id": 133,
+                "name": "Sedlackova"
+            },
+            {
+                "id": 134,
+                "name": "Sedlakova"
+            },
+            {
+                "id": 135,
+                "name": "Seitlova"
+            },
+            {
+                "id": 136,
+                "name": "Schuster"
+            },
+            {
+                "id": 137,
+                "name": "Skazyk"
+            },
+            {
+                "id": 138,
+                "name": "Slezakova"
+            },
+            {
+                "id": 139,
+                "name": "Sosna"
+            },
+            {
+                "id": 140,
+                "name": "Sosnovcova"
+            },
+            {
+                "id": 141,
+                "name": "Svobodova"
+            },
+            {
+                "id": 142,
+                "name": "Surovikova"
+            },
+            {
+                "id": 143,
+                "name": "Svobodova"
+            },
+            {
+                "id": 144,
+                "name": "Szallarova"
+            },
+            {
+                "id": 145,
+                "name": "Safarcik"
+            },
+            {
+                "id": 146,
+                "name": "Scukova"
+            },
+            {
+                "id": 147,
+                "name": "Skop"
+            },
+            {
+                "id": 148,
+                "name": "Slechtova"
+            },
+            {
+                "id": 149,
+                "name": "Sotolova"
+            },
+            {
+                "id": 150,
+                "name": "Suffnerova"
+            }
+        ]
+    },
+    "get_kiosk_catalog": {
+        "data": {
+            "categories": [
+                {
+                    "id": 736,
+                    "title": "Produkty",
+                    "categories": [
+                        {
+                            "id": 754,
+                            "title": "Technika a pomůcky",
+                            "categories": [
+                                {
+                                    "id": 757,
+                                    "title": "Kartáče a hřebeny"
+                                },
+                                {
+                                    "id": 758,
+                                    "title": "Ozdoby do vlasů"
+                                },
+                                {
+                                    "id": 759,
+                                    "title": "Technika"
+                                },
+                                {
+                                    "id": 816,
+                                    "title": "Balíčky"
+                                }
+                            ],
+                            "products": [
+                                {
+                                    "id": 927,
+                                    "img": "https://vvitrina.cz/194-tm_small_default/kiepe-profesionalni-twirly-hair-gumicky-do-vlasu.jpg",
+                                    "title": "KIEPE profesionální TWIRLY HAIR - gumičky do vlasů",
+                                    "price": 40
+                                },
+                                {
+                                    "id": 996,
+                                    "img": "https://vvitrina.cz/2327-tm_small_default/fen-na-vlasy-gama-classic-a11nr.jpg",
+                                    "title": "Fén na vlasy Gama Classic A11NR",
+                                    "price": 1386
+                                },
+                                {
+                                    "id": 2225,
+                                    "img": "https://vvitrina.cz/1345-tm_small_default/profesionalni-kadernicky-alobal-vvitrina14-mikro-250-m.jpg",
+                                    "title": "Profesionální kadeřnický alobal Vvitrina,14 mikro (250 m)",
+                                    "price": 330
+                                },
+                                {
+                                    "id": 2433,
+                                    "img": "https://vvitrina.cz/2071-tm_small_default/strihaci-strojek-gama-trimmer-gt527-eu.jpg",
+                                    "title": "Stříhací strojek GaMa Trimmer GT527 EU",
+                                    "price": 0
+                                }
+                            ]
+                        },
+                        {
+                            "id": 755,
+                            "title": "Strava pro zdravé vlasy"
+                        },
+                        {
+                            "id": 756,
+                            "title": "Barber"
+                        },
+                        {
+                            "id": 806,
+                            "title": "PROSALON"
+                        },
+                        {
+                            "id": 807,
+                            "title": "SCHWARZKOPF"
+                        }
+                    ],
+                    "products": [
+                        {
+                            "id": 927,
+                            "img": "https://vvitrina.cz/194-tm_small_default/kiepe-profesionalni-twirly-hair-gumicky-do-vlasu.jpg",
+                            "title": "KIEPE profesionální TWIRLY HAIR - gumičky do vlasů",
+                            "price": 40
+                        },
+                        {
+                            "id": 28654,
+                            "img": "https://vvitrina.cz/2911-tm_small_default/igelitova-taska-vvitrina.jpg",
+                            "title": "Igelitová taška Vvitrina",
+                            "price": 22
+                        },
+                        {
+                            "id": 34179,
+                            "img": "https://vvitrina.cz/8877-tm_small_default/test-terminal-sluzba.jpg",
+                            "title": "AntiCovid 19 TEST pro kadeřníky",
+                            "price": 64
+                        },
+                        {
+                            "id": 34380,
+                            "img": "https://vvitrina.cz/8913-tm_small_default/kupon-11-zdarma-akce.jpg",
+                            "title": "Kupon 1+1 zdarma akce",
+                            "price": 0
+                        },
+                        {
+                            "id": 34622,
+                            "img": "https://vvitrina.cz/194-tm_small_default/kiepe-profesionalni-twirly-hair-gumicky-do-vlasu.jpg",
+                            "title": "Fibre clinix",
+                            "price": 125
+                        },
+                        {
+                            "id": 34702,
+                            "img": "https://vvitrina.cz/9200-tm_small_default/fen-na-vlasy-gama-iq-perfect-hair-dryer-rose-gold.jpg",
+                            "title": "Fén na vlasy Gama IQ Perfect Hair Dryer Rose Gold",
+                            "price": 7190
+                        }
+                    ]
+                },
+                {
+                    "id": 737,
+                    "title": "Služby"
+                },
+                {
+                    "id": 9354,
+                    "title": "Test služby"
+                },
+                {
+                    "id": 9356,
+                    "title": "Služby Nový Ceník"
+                }
+            ]
+        }
+    }
+}
