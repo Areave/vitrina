@@ -10,10 +10,11 @@ function CleanCardModal() {
         dispatch(resetModal());
     };
 
+    
     const cleanCart = () => {
         dispatch(emptyCart());
         closeModal();
-    };
+    }; 
 
     return (
         <>
