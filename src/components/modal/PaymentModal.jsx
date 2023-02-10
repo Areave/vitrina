@@ -3,12 +3,14 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { resetModal, setModal } from "../../reducers/storageReducer";
 // import { sendPayment } from "./../actions/payment";
-import { setAmountTips } from "../../reducers/cartReducer";
+import { setAmountTips, setPaymentGateProccess } from "../../reducers/cartReducer";
+import terminal_cancel from "../../../public/img/terminal_cancel.png";
 
 function PaymentModal({ sendPayment }) {
     const dispatch = useDispatch();
 
     const closeModal = () => {
+        dispatch(setPaymentGateProccess(false));
         dispatch(resetModal());
     };
 
@@ -38,13 +40,13 @@ function PaymentModal({ sendPayment }) {
     };
     const applyTips = () => {
         dispatch(setAmountTips(Number(tips)));
-        setTips('')
-        dispatch(setModal({buttonClose: true, name: "paymentMethodModal", step: 'CHOOSE' }))
+        setTips("");
+        dispatch(setModal({ buttonClose: true, name: "paymentMethodModal", step: "CHOOSE" }));
     };
     const cancelTips = () => {
         dispatch(setAmountTips(0));
-        setTips('')
-        dispatch(setModal({buttonClose: true, name: "paymentMethodModal", step: 'CHOOSE' }))
+        setTips("");
+        dispatch(setModal({ buttonClose: true, name: "paymentMethodModal", step: "CHOOSE" }));
     };
 
     useEffect(() => {
@@ -111,7 +113,9 @@ function PaymentModal({ sendPayment }) {
                                 </span>
                             </div>
                             <div id="tip_footer">
-                                <span className="tip_btn" onClick={() => cancelTips()}>Nemám zájem, přeskočit</span>
+                                <span className="tip_btn" onClick={() => cancelTips()}>
+                                    Nemám zájem nechat spropitné pro kadeřníka (přeskočit)
+                                </span>
                                 <span className="tip_btn small submit" onClick={() => applyTips()}>
                                     <i className="fa fa-check"></i>
                                 </span>
@@ -121,7 +125,7 @@ function PaymentModal({ sendPayment }) {
                 </div>
             </>
         );
-    } else if (!isPaymentGateProccess && modal.step === 'CHOOSE') {
+    } else if (!isPaymentGateProccess && modal.step === "CHOOSE") {
         return (
             <>
                 <div id="payment_methods" className="open">
@@ -160,23 +164,6 @@ function PaymentModal({ sendPayment }) {
                                         </font>
                                     </span>
                                 </span>
-                                {/* <font style={{ verticalAlign: "inherit" }}>
-                                <span>
-                                    <span className="uppercase title">
-                                        <font style={{ verticalAlign: "inherit" }}>Скидка </font>
-                                    </span>
-                                </span>
-                                <span>
-                                    <span className="big-text">
-                                        <font style={{ verticalAlign: "inherit" }}>-8% </font>
-                                    </span>
-                                </span>
-                                <span>
-                                    <span className="uppercase title">
-                                        <font style={{ verticalAlign: "inherit" }}>На услуги</font>
-                                    </span>
-                                </span>
-                            </font> */}
                                 <span>
                                     <span className="uppercase title">
                                         <font style={{ verticalAlign: "inherit" }}></font>
@@ -228,31 +215,39 @@ function PaymentModal({ sendPayment }) {
         return (
             <>
                 <div id="loader_div" className={loaderDiv}>
-                    <div id="loader_close" onClick={() => togglePaymenMethodModal(false)}>
+                    {/* <div id="loader_close" onClick={() => togglePaymenMethodModal(false)}>
                         Zavřít <i className="fa fa-hand-pointer-o" aria-hidden="true"></i> <i className="fa fa-window-close-o" aria-hidden="true"></i>
-                    </div>
+                    </div> */}
 
                     {errorPaymentGateResponse ? (
                         <>
-                            {" "}
                             <i className="fa fa-exclamation-triangle red" aria-hidden="true" id="loader"></i>
                             <div id="loader_msg">
                                 {errorPaymentGateResponse?.status + ": " || ""} {errorPaymentGateResponse?.message || "Chyba brány"}
                                 <br />
-                                <a
-                                    onClick={() => {
-                                        clickPaymentMethod();
-                                    }}
-                                    href="#"
-                                >
-                                    Znovu odeslat
+                                <a onClick={() => closeModal()} href="#">
+                                    Zavřít
+                                    {/* Znovu odeslat */}
                                 </a>
                             </div>
                         </>
                     ) : (
                         <>
-                            <i className="fa fa-money" aria-hidden="true" id="loader"></i>
-                            <div id="loader_msg"></div>
+                            <div id="loader">
+                                <i className="fa fa-money" aria-hidden="true"></i>
+                                {paymentMethod === "CARD" ? (
+                                    <div id="loader_img">
+                                        <img src={terminal_cancel} />
+                                    </div>
+                                ) : (
+                                    ""
+                                )}
+                            </div>
+                            {paymentMethod === "CARD" ? (
+                                <div id="loader_msg">Pro zrušení platby stiskněte červené tlačítko na POS terminálu</div>
+                            ) : (
+                               ""
+                            )}
                         </>
                     )}
                 </div>

@@ -6,6 +6,7 @@ import {
 
 export const getCollaborators = (searchQuery) => {
 
+  // const url = `http://localhost:4200/get_kiosk_collaborators`
   const url = `${global.config.protocol}://${global.config.apiHost}${global.config.apiPrefix ? '/' + global.config.apiPrefix : ''}/get_kiosk_collaborators${global.config.sid ? '?sid=' + global.config.sid : ''}`;
 
   return async (dispatch) => {
@@ -18,6 +19,8 @@ export const getCollaborators = (searchQuery) => {
         "Content-Type": "application/json",
       },
     });
+
+    console.log('collaborators:', response)
     
     if (Array.isArray(response?.data?.data)) {
       dispatch(setCollaborators(response.data.data));

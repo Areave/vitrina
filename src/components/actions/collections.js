@@ -19,6 +19,7 @@ export const printCollections = (payload) => { // goto inkasace page
             data: []
         });
         
+        console.log('collecions:', response)
         
         if (response?.status == 200 && response?.data?.text === 'Redirect done') {
             return {status: 'OK'}

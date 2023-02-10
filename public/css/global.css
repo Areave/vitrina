@@ -129,6 +129,7 @@ ul {
     padding: 1px 0 0;
     box-sizing: border-box;
     overflow-x: hidden;
+    position: relative;
 }
 #employees:not(:empty) {
     height: 90vh;
@@ -400,6 +401,61 @@ ul.tiles li a span {
     padding-right: 8vh !important;
 }
 .scrolling {
+    display: block;
+    position: fixed;
+    width: 8vh;
+    height: inherit;
+    top: 0;
+    right: 0;
+    margin-top: 10vh;
+    font-size: 8vh;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.06);
+}
+.big-content + .scrolling {
+    display: block;
+}
+.big-content ul {
+    padding: 0 15px;
+}
+.scrolling > div {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0px;
+    color: #888;
+}
+.scrolling > div[class*="-down"] {
+    top: auto;
+    bottom: 0px;
+}
+.scrolling .simulate-bar {
+    margin: 60px 15%;
+    max-width: 70%;
+    position: absolute;
+    border-radius: 8px;
+    top: 0;
+    background: rgba(0, 0, 0, 0.14);
+}
+.scrolling .simulate-bar[touch-start] {
+    background: rgba(0, 0, 0, 0.4);
+}
+#products + .scrolling {
+    /* top: 38px !important; */
+    right: 25% !important;
+}
+#cart .scrolling > div {
+    color: #ff8787;
+}
+#cart .big-content {
+    padding-right: 9vh !important;
+}
+
+/****Custom Scroller****/
+/* .big-content {
+    padding-right: 8vh !important;
+}
+.scrolling {
     display: none;
     position: absolute;
     width: 8vh;
@@ -445,7 +501,7 @@ ul.tiles li a span {
 }
 #cart .big-content {
     padding-right: 9vh !important;
-}
+} */
 /* SPINNER */
 * {
     transition: filter 0.3s;
@@ -469,11 +525,19 @@ ul.tiles li a span {
     font-size: 0;
     color: #ff8a00;
     left: 50%;
-    top: 50%;
+    top: 35%;
     margin: 0 0 0 0;
     -webkit-transition: all 0.3s;
     transition: all 0.3s;
 }
+#loader_img {
+    /* position:absolute; */
+    height: 15vw;
+}
+#loader_img img { 
+    width: 100%;
+}
+
 #loader_msg {
     position: absolute;
     top: 46vw;
@@ -500,7 +564,7 @@ ul.tiles li a span {
     background: #e7e7e7;
 }
 .open #loader {
-    font-size: 16vw;
+    font-size: 14vw;
     width: 16vw;
     margin: -8vw 0 0 -8vw;
     text-align: center;
@@ -1060,6 +1124,14 @@ div#change_date {
     text-align: center;
     box-sizing: border-box;
 }
+
+/* */
+#datepicker .ui-datepicker-calendar td {
+    box-sizing: border-box;
+    width: 14.28%;
+    font-size: 0.9em;
+    border-collapse: collapse;
+ }
 
 /* REACT DATEPICKER */
 #datepicker > div {

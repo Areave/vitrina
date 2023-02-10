@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addBreadcrumb, sliceBreadcrumb } from "../reducers/catalogReducer";
 import Product from "./Product";
@@ -37,10 +37,47 @@ function TerminalCatalog() {
 		});
     }, []);
 
+	/* 
+	Scroll
+	 */
+    const [parentHeight, setParentHeight] = useState(0);
+    const [childHeight, setChildHeight] = useState(0);
+    const [offsetTop, setOffsetTop] = useState(0);
+    const [sliderHeight, setSliderHeight] = useState(0);
+
+    useEffect(() => {
+        setParentHeight(document.getElementById("left-content").clientHeight);
+        setChildHeight(document.getElementById("categories").clientHeight + document.getElementById("products").clientHeight);
+        setOffsetTop(document.getElementById("left-content").scrollTop);
+        setSliderHeight(parentHeight / (childHeight / parentHeight));
+    }, [parentHeight, childHeight, breadcrumb]);
+
+    useEffect(() => {
+        const el = document.getElementById("left-content");
+        const handleScroll = (e) => {
+            setOffsetTop(el.scrollTop);
+        };
+        el?.addEventListener("scroll", handleScroll);
+        return () => el?.removeEventListener("scroll", handleScroll);
+    });
+
+    const setScroolUp = () => {
+        if (offsetTop <= 0) return;
+        const y = offsetTop - 100;
+        if (sliderHeight) setOffsetTop(y);
+        document.getElementById("left-content").scrollTop = y;
+    };
+
+    const setScroolDown = () => {
+		if (offsetTop >=  childHeight - parentHeight) return;
+        const y = offsetTop + 100;
+        setOffsetTop(y);
+        document.getElementById("left-content").scrollTop = y;
+    };
+
     return (
         <>
-
-            <div id="left-content" className="">
+            <div id="left-content" className="big-content">
                 <div id="categories" className="unvisibled" style={{ opacity: 1 }}>
                     {breadcrumb.length ? (
                         <div className="breadcrumb" style={{ width: "100%" }}>
@@ -75,19 +112,29 @@ function TerminalCatalog() {
                     <ul className="tiles"></ul>
                 </div>
 
-                <div className="scrolling" scroll-targ="left-content" style={{ height: "752.391px", top: "83.5938px", left: "1373.12px" }}>
-                    <div className="simulate-bar" style={{ height: "236.634px", marginTop: "66.875px", marginBottom: "66.875px", top: "0px" }}></div>
-                    <div className="fa fa-chevron-circle-up"></div>
-                    <div className="fa fa-chevron-circle-down"></div>
-                </div>
-
                 <div id="products" className="">
                     <ul>
-                        {catalog?.products?.map((item, index) => {
+                        {catalog?.products?.filter(item => item.type !== 'GOODS_SERVICE_FEE').map((item, index) => {
                             return <Product item={item} index={index} />;
                         })}
                     </ul>
                 </div>
+
+                <div className="scrolling" scroll-targ="left-content" style={{}}>
+                    <div
+                        className="simulate-bar"
+                        style={{
+                            height: sliderHeight + "px",
+                            marginTop: offsetTop / (childHeight / parentHeight) + "px",
+                        }}
+                    ></div>
+                    <div className="fa fa-chevron-circle-up" onClick={() => setScroolUp()}></div>
+                    <div
+                        className="fa fa-chevron-circle-down"
+                        onClick={() => setScroolDown()}
+                    ></div>
+                </div>
+
             </div>
         </>
     );

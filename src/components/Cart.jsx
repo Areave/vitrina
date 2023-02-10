@@ -1,6 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct, removeProduct, emptyCart, setPaymentGateProccess } from "../reducers/cartReducer";
+import {
+    addProduct,
+    removeProduct,
+    emptyCart,
+    setPaymentGateProccess,
+} from "../reducers/cartReducer";
 import CleanCartModal from "./modal/CleanCartModal";
 import PaymentModal from "./modal/PaymentModal";
 import { sendPaymentToGate } from "./actions/payment";
@@ -27,6 +32,7 @@ const Cart = () => {
      */
     const collaborator = useSelector((state) => state.collabarators.item);
     const cart = useSelector((state) => state.cart.items);
+    // const serviceFee = useSelector((state) => state.cart.serviceFee);
     const [isPaymentModal, setIsPaymentModal] = useState(false);
     const [isClearCartModal, setIsCleanCartModal] = useState(false);
     const [barcode, setBarcode] = useState(null);
@@ -62,13 +68,37 @@ const Cart = () => {
                 date,
                 customerId: collaborator.id,
                 customerName: collaborator.name,
-                goods: cart.map((item) => item.id),
+                // goods: cart.map((item) => item.id),
+                // goods: cart.reduce((acc, item) => {
+                //     if (acc.find((itemAcc) => itemAcc?.id === item.id)) {
+                //         return acc?.map((itemAcc) =>
+                //             itemAcc.id === item.id ? { id: itemAcc.id, count: itemAcc.count + 1, price: itemAcc.price + item.price } : item
+                //         );
+                //     }
+                //     return [...acc, { id: item.id, count: 1, price: item.price }];
+                // }, []),
+                goods: cart.reduce((acc, item) => {
+                    if (acc.find((itemAcc) => itemAcc?.id === item.id)) {
+                        return acc?.map((itemAcc) =>
+                            itemAcc.id === item.id
+                                ? {
+                                      id: itemAcc.id,
+                                      count: itemAcc.count + 1,
+                                      price: itemAcc.price + item.price,
+                                  }
+                                : itemAcc
+                        );
+                    }
+                    return [...acc, { id: item.id, count: 1, price: item.price }];
+                }, []),
             })
         );
     };
 
     function findGood(catalog, barcode) {
-        const good = catalog?.products?.find((good) => good.barcode?.toString() === barcode?.toString());
+        const good = catalog?.products?.find(
+            (good) => good.barcode?.toString() === barcode?.toString()
+        );
         if (good) return good;
         for (let category of catalog?.categories || []) {
             const good = findGood(category, barcode);
@@ -85,6 +115,18 @@ const Cart = () => {
         }
     };
 
+    // const isServiceFee = () => {
+    //     console.log(cart);
+    //     const res = cart.some((item) => item?.type === "GOODS_SERVICE_FEE");
+    //     useEffect(() => {
+    //         if (!res) {
+    //             dispatch(setServiceToDo("zero"));
+    //         } else if (!serviceFee.count) {
+    //             dispatch(setServiceToDo("add"));
+    //         }
+    //     }, [cart]);
+    //     return res;
+    // };
     return (
         <>
             <BarcodeReader onScan={handleScan} minLength="6" />
@@ -93,22 +135,48 @@ const Cart = () => {
                     <h2>
                         Košík
                         {cart?.length ? (
-                            <a id="cart_trash" className="fa fa-trash" onClick={() => openModal({ name: "cleanCartModal", buttonClose: true })} href="#"></a>
+                            <a
+                                id="cart_trash"
+                                className="fa fa-trash"
+                                onClick={() =>
+                                    openModal({ name: "cleanCartModal", buttonClose: true })
+                                }
+                                href="#"
+                            ></a>
                         ) : (
                             ""
                         )}
                     </h2>
                 </div>
                 <div id="cart-products" className="cart-products">
+                    {/* {isServiceFee() ? (
+                        <div className="cart-item">
+                            <span className="cart-item-name">Goods Service Fee</span>
+                            <div className="flex">
+                                <a className="cart-item-remove fa fa-minus" onClick={() => dispatch(setServiceToDo("remove"))}></a>
+                                <span className="cart-item-quantity">{serviceFee.count} ks</span>
+                                <a className="cart-item-remove fa fa-plus" onClick={() => dispatch(setServiceToDo("add"))}></a>
+                            </div>
+                        </div>
+                    ) : (
+                        ""
+                    )} */}
                     {matchCart.map((item) => {
-                        // const product = cart.find(itemCart => itemCart.id = index)
                         return (
                             <div className="cart-item">
                                 <span className="cart-item-name">{item.title}</span>
                                 <div className="flex">
-                                    <a className="cart-item-remove fa fa-minus" onClick={() => remove(item.id)}></a>
-                                    <span className="cart-item-quantity">{matchCount[item.id]} ks</span>
-                                    <a className="cart-item-remove fa fa-plus" onClick={() => add(item)}></a>
+                                    <a
+                                        className="cart-item-remove fa fa-minus"
+                                        onClick={() => remove(item.id)}
+                                    ></a>
+                                    <span className="cart-item-quantity">
+                                        {matchCount[item.id]} ks
+                                    </span>
+                                    <a
+                                        className="cart-item-remove fa fa-plus"
+                                        onClick={() => add(item)}
+                                    ></a>
                                 </div>
                             </div>
                         );
@@ -123,7 +191,13 @@ const Cart = () => {
                     </div>
                     {cart?.length ? (
                         <div className="cart-buttons">
-                            <a href="#" className="cart-checkout pay-cash" onClick={() => openModal({ name: "paymentMethodModal", step: "TIPS" })}>
+                            <a
+                                href="#"
+                                className="cart-checkout pay-cash"
+                                onClick={() =>
+                                    openModal({ name: "paymentMethodModal", step: "TIPS" })
+                                }
+                            >
                                 Zaplatit
                             </a>
                         </div>

@@ -251,6 +251,54 @@
                                     "img": "https://vvitrina.cz/2071-tm_small_default/strihaci-strojek-gama-trimmer-gt527-eu.jpg",
                                     "title": "Stříhací strojek GaMa Trimmer GT527 EU",
                                     "price": 0
+                                },
+                                {
+                                    "id": 927,
+                                    "img": "https://vvitrina.cz/194-tm_small_default/kiepe-profesionalni-twirly-hair-gumicky-do-vlasu.jpg",
+                                    "title": "KIEPE profesionální TWIRLY HAIR - gumičky do vlasů",
+                                    "price": 40
+                                },
+                                {
+                                    "id": 996,
+                                    "img": "https://vvitrina.cz/2327-tm_small_default/fen-na-vlasy-gama-classic-a11nr.jpg",
+                                    "title": "Fén na vlasy Gama Classic A11NR",
+                                    "price": 1386
+                                },
+                                {
+                                    "id": 2225,
+                                    "img": "https://vvitrina.cz/1345-tm_small_default/profesionalni-kadernicky-alobal-vvitrina14-mikro-250-m.jpg",
+                                    "title": "Profesionální kadeřnický alobal Vvitrina,14 mikro (250 m)",
+                                    "price": 330
+                                },
+                                {
+                                    "id": 2433,
+                                    "img": "https://vvitrina.cz/2071-tm_small_default/strihaci-strojek-gama-trimmer-gt527-eu.jpg",
+                                    "title": "Stříhací strojek GaMa Trimmer GT527 EU",
+                                    "price": 0
+                                },
+                                {
+                                    "id": 927,
+                                    "img": "https://vvitrina.cz/194-tm_small_default/kiepe-profesionalni-twirly-hair-gumicky-do-vlasu.jpg",
+                                    "title": "KIEPE profesionální TWIRLY HAIR - gumičky do vlasů",
+                                    "price": 40
+                                },
+                                {
+                                    "id": 996,
+                                    "img": "https://vvitrina.cz/2327-tm_small_default/fen-na-vlasy-gama-classic-a11nr.jpg",
+                                    "title": "Fén na vlasy Gama Classic A11NR",
+                                    "price": 1386
+                                },
+                                {
+                                    "id": 2225,
+                                    "img": "https://vvitrina.cz/1345-tm_small_default/profesionalni-kadernicky-alobal-vvitrina14-mikro-250-m.jpg",
+                                    "title": "Profesionální kadeřnický alobal Vvitrina,14 mikro (250 m)",
+                                    "price": 330
+                                },
+                                {
+                                    "id": 2433,
+                                    "img": "https://vvitrina.cz/2071-tm_small_default/strihaci-strojek-gama-trimmer-gt527-eu.jpg",
+                                    "title": "Stříhací strojek GaMa Trimmer GT527 EU",
+                                    "price": 0
                                 }
                             ]
                         },

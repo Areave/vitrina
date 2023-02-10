@@ -1,15 +1,15 @@
-// import '../public/assets/scss/font-awesome.scss'
 import "../public/css/global.css";
-// import '../public/css/jquery-ui.min.css'
 import "../public/css/signpost.css";
 import "../public/css/font-awesome.css";
+import '../public/script/jquery-3.2.1.min.js'
+import '../public/script/jquery-ui.min.js'
+import '../public/css/jquery-ui.min.css'
 import React from "react";
 import { render } from "react-dom";
 import App from "./components/App.jsx";
 import { Provider } from "react-redux";
 import { store } from "./reducers";
 import "./config";
-// import '../public/script/jquery-3.2.1.min.js'
 import "../public/script/main.js";
 // import axios from 'axios'
 // import '../public/script/screensaver.js'
