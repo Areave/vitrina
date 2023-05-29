@@ -13,13 +13,18 @@ var getParams = function (url) {
 	}
 	return params;
 };
+
+const protocol = getParams(document.location.href)?.protocol
+const api_host = getParams(document.location.href)?.api_host
+const api_pref = getParams(document.location.href)?.api_pref
 const sid = getParams(document.location.href)?.token_key
-console.log(sid)
+// console.log(sid)
 
 module.exports = global.config = {
-    protocol: 'https',
-    apiHost: 'api.100czk.cz',
-    apiPrefix: 'api_v2',
+    protocol: protocol || 'https',
+    apiHost: api_host || 'api.100czk.cz',
+    apiPrefix: api_pref ?? 'api_v2',
+    sid: sid,
     // protocol: 'http',
     // apiHost: 'localhost:4200',
     // apiPrefix: '',
