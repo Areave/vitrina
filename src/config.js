@@ -20,15 +20,16 @@ const api_pref = getParams(document.location.href)?.api_pref
 const sid = getParams(document.location.href)?.token_key
 // console.log(sid)
 
-module.exports = global.config = {
-    protocol: protocol || 'https',
-    apiHost: api_host || 'api.100czk.cz',
-    apiPrefix: api_pref ?? 'api_v2',
-    sid: sid,
-    // protocol: 'http',
-    // apiHost: 'localhost:4200',
-    // apiPrefix: '',
-    sid,
-    // sid: '3fb81133e0554d58143321f288c4b5a2',
-    currency: 'Kč'
-}
+const _default = global.config = {
+	protocol: protocol || 'https',
+	apiHost: api_host || 'api.100czk.cz',
+	apiPrefix: api_pref ?? 'api_v2',
+	sid: sid,
+	// protocol: 'http',
+	// apiHost: 'localhost:4200',
+	// apiPrefix: '',
+	// sid,
+	// sid: 'b52490d7c0c4938a3cc524c730057a59',
+	currency: 'Kč'
+};
+export { _default as default };

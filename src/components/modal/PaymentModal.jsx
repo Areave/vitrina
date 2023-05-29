@@ -27,7 +27,7 @@ function PaymentModal({ sendPayment }) {
     const clickPaymentMethod = (val = paymentMethod) => {
         if (val) {
             setPaymentMethod(val);
-            sendPayment(val);
+            dispatch(setModal({ buttonClose: true, name: "paymentMethodModal", step: 'PRINT_BILL' }))
         }
     };
 
@@ -48,6 +48,15 @@ function PaymentModal({ sendPayment }) {
         setTips("");
         dispatch(setModal({ buttonClose: true, name: "paymentMethodModal", step: "CHOOSE" }));
     };
+    const clickPrintBill = (isPrintBill) => {
+        sendPayment(paymentMethod, isPrintBill);
+    };
+    const clickCancelPayment = () => {
+        dispatch(cancelPayment());
+        setPaymentMethod(null);
+        dispatch(setPaymentGateProccess(false));
+        closeModal();
+    }
 
     useEffect(() => {
         setLoaderDiv(errorPaymentGateResponse ? "open closeable" : "open");
@@ -211,6 +220,50 @@ function PaymentModal({ sendPayment }) {
                 </div>
             </>
         );
+    } else if (modal.step === 'PRINT_BILL') {
+        return (
+            <>
+                <div id="payment_methods" className="open">
+                    <div id="payment_methods_header">
+                        <span id="price_preview">
+                            <font style={{ verticalAlign: "inherit" }}>
+                                <font style={{ verticalAlign: "inherit" }}>Celkem: </font>
+                            </font>
+                            <span className="price">
+                                <font style={{ verticalAlign: "inherit" }}>
+                                    <font style={{ verticalAlign: "inherit" }}>
+                                        {amount + (amountTips || 0)} {global.config.currency}
+                                    </font>
+                                </font>
+                            </span>
+                        </span>
+                        <span onClick={() => closeModal()}>
+                            <font style={{ verticalAlign: "inherit" }}>
+                                <font style={{ verticalAlign: "inherit" }}> Zavřít</font>
+                            </font>
+                            <i className="fa fa-hand-pointer-o" aria-hidden="true"></i> <i className="fa fa-window-close-o" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <div id="loader_msg">
+                        <h2>Tisknout účtenku</h2>
+                        <div>
+                            <a
+                                onClick={() => clickPrintBill(false)}
+                                href="#"
+                            >
+                                Ne
+                            </a>&nbsp;
+                            <a
+                                onClick={() => clickPrintBill(true)}
+                                href="#"
+                            >
+                                Ano
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </>
+        );
     } else {
         return (
             <>
@@ -246,7 +299,24 @@ function PaymentModal({ sendPayment }) {
                             {paymentMethod === "CARD" ? (
                                 <div id="loader_msg">Pro zrušení platby stiskněte červené tlačítko na POS terminálu</div>
                             ) : (
-                               ""
+                                <>
+                                    <i className="fa fa-money" aria-hidden="true" id="loader"></i>
+                                    <div id="loader_msg">
+                                        {/* <button onClick={() => clickCancelPayment()}>
+                                <span>
+                                    <font style={{ verticalAlign: "inherit" }}>
+                                        <font style={{ verticalAlign: "inherit" }}>Zruseni platby</font>
+                                    </font>
+                                </span>
+                            </button> */}
+                                        <a
+                                            onClick={clickCancelPayment}
+                                            href="#"
+                                        >
+                                            Zruseni platby
+                                        </a>
+                                    </div>
+                                </>
                             )}
                         </>
                     )}

@@ -59,7 +59,7 @@ const Cart = () => {
         dispatch(removeProduct(id));
     };
 
-    const sendPayment = (paymentMethod) => {
+    const sendPayment = (paymentMethod, isPrintBill) => {
         dispatch(
             sendPaymentToGate({
                 paymentMethod,
@@ -68,24 +68,16 @@ const Cart = () => {
                 date,
                 customerId: collaborator.id,
                 customerName: collaborator.name,
-                // goods: cart.map((item) => item.id),
-                // goods: cart.reduce((acc, item) => {
-                //     if (acc.find((itemAcc) => itemAcc?.id === item.id)) {
-                //         return acc?.map((itemAcc) =>
-                //             itemAcc.id === item.id ? { id: itemAcc.id, count: itemAcc.count + 1, price: itemAcc.price + item.price } : item
-                //         );
-                //     }
-                //     return [...acc, { id: item.id, count: 1, price: item.price }];
-                // }, []),
+                printBill: isPrintBill,
                 goods: cart.reduce((acc, item) => {
                     if (acc.find((itemAcc) => itemAcc?.id === item.id)) {
                         return acc?.map((itemAcc) =>
                             itemAcc.id === item.id
                                 ? {
-                                      id: itemAcc.id,
-                                      count: itemAcc.count + 1,
-                                      price: itemAcc.price + item.price,
-                                  }
+                                    id: itemAcc.id,
+                                    count: itemAcc.count + 1,
+                                    price: itemAcc.price + item.price,
+                                }
                                 : itemAcc
                         );
                     }

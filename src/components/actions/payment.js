@@ -29,8 +29,16 @@ async function loopFunc ({url, data = {}, checkFunc}, delay = 1000, attempt = 0)
 
 export const sendPaymentToGate = (payload) => {
     console.log('payload:', payload)
-    const url = `${global.config.protocol}://${global.config.apiHost}/${global.config.apiPrefix}/open_kiosk_transaction?sid=${global.config.sid}`;
 
+    const {protocol, apiHost, apiPrefix , sid} = global.config || {};
+
+    const url = `${protocol}://${apiHost}/${apiPrefix}/open_kiosk_transaction?sid=${sid}`;
+
+    const params = [
+        protocol && `protocol=${protocol}`, 
+        apiHost && `api_host=${apiHost}`,
+        apiPrefix && `api_pref=${apiPrefix}`
+    ].filter(Boolean).join('&');
 
     return async (dispatch) => {
         dispatch(setPaymentGateProccess(true))
@@ -47,9 +55,8 @@ export const sendPaymentToGate = (payload) => {
                 data: {
                     payment_type: payload.paymentMethod,
                     service: "SRV_100CZK",
-                    url_ok: `${window.location.origin}`,
-                    // url_fail: `${window.location.origin}/error-payment`,
-                    url_fail: null,
+                    url_ok: `${window.location.origin}` + (params && `/?${params}`),
+                    url_fail: `${window.location.origin}/error-payment` + (params && `/?${params}`),
                     currency: "CZK",
                     amount: payload.amount,
                     commission: payload.amountTips || 0,
@@ -58,6 +65,7 @@ export const sendPaymentToGate = (payload) => {
                     params: {
                         custmer_id: payload.customerId,
                         custmer_name: payload.customerName,
+                        print_bill: payload.printBill,
                         date: payload.date
                     },
                     goods: payload.goods,
