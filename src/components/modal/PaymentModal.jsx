@@ -5,6 +5,7 @@ import { resetModal, setModal } from "../../reducers/storageReducer";
 // import { sendPayment } from "./../actions/payment";
 import { setAmountTips, setPaymentGateProccess } from "../../reducers/cartReducer";
 import terminal_cancel from "../../../public/img/terminal_cancel.png";
+import { cancelPayment } from "./../actions/cancelPayment";
 
 function PaymentModal({ sendPayment }) {
     const dispatch = useDispatch();
@@ -50,6 +51,7 @@ function PaymentModal({ sendPayment }) {
     };
     const clickPrintBill = (isPrintBill) => {
         sendPayment(paymentMethod, isPrintBill);
+        dispatch(setModal({ buttonClose: false, name: "paymentMethodModal", step: null }));
     };
     const clickCancelPayment = () => {
         dispatch(cancelPayment());
@@ -64,7 +66,7 @@ function PaymentModal({ sendPayment }) {
 
     console.log("modal:", modal);
 
-    if (modal.step === "TIPS") {
+    if (!isPaymentGateProccess && modal.step === "TIPS") {
         return (
             <>
                 <div id="tip" className="open">
@@ -220,7 +222,7 @@ function PaymentModal({ sendPayment }) {
                 </div>
             </>
         );
-    } else if (modal.step === 'PRINT_BILL') {
+    } else if (!isPaymentGateProccess && modal.step === 'PRINT_BILL') {
         return (
             <>
                 <div id="payment_methods" className="open">
