@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addBreadcrumb, sliceBreadcrumb } from "../reducers/catalogReducer";
 import Product from "./Product";
+import { getCatalog } from "./actions/catalog";
 
-function TerminalCatalog() {
+function TerminalCatalog({button}) {
     const dispatch = useDispatch();
 
     let catalog = useSelector((state) => state.catalog.items);
@@ -20,6 +21,10 @@ function TerminalCatalog() {
     const returnCategory = (num) => {
         dispatch(sliceBreadcrumb(num));
     };
+
+    useEffect(() => {
+        dispatch(getCatalog(button));
+    }, []);
 
     useEffect(() => {
 		let UPC = '';
@@ -78,7 +83,7 @@ function TerminalCatalog() {
     return (
         <>
             <div id="left-content" className="big-content">
-                <div id="categories" className="unvisibled" style={{ opacity: 1 }}>
+                <div id="categories" className={'unvisibled' + `${button ? ' button' : ''}`} style={{ opacity: 1 }}>
                     {breadcrumb.length ? (
                         <div className="breadcrumb" style={{ width: "100%" }}>
                             <a className="breadcrumb-item breadcrumb-home" onClick={() => returnCategory(-1)}>
@@ -97,7 +102,7 @@ function TerminalCatalog() {
                     ) : (
                         <></>
                     )}
-                    <ul className="tiles">
+                    <ul className={'tiles' + `${button ? ' button' : ''}`}>
                         {catalog?.categories?.map((item, index) => {
                             return (
                                 <li key={index}>
@@ -108,14 +113,14 @@ function TerminalCatalog() {
                             );
                         })}
                     </ul>
-                    <ul className="tiles"></ul>
-                    <ul className="tiles"></ul>
+                    {/*<ul className={'tiles' + `${button ? ' button' : ''}`}></ul>*/}
+                    {/*<ul className={'tiles' + `${button ? ' button' : ''}`}></ul>*/}
                 </div>
 
-                <div id="products" className="">
+                <div id="products" className={`${button ? ' button' : ''}`} >
                     <ul>
                         {catalog?.products?.filter(item => item.type !== 'GOODS_SERVICE_FEE').map((item, index) => {
-                            return <Product item={item} index={index} />;
+                            return <Product item={item} index={index} button={button}/>;
                         })}
                     </ul>
                 </div>

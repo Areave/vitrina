@@ -5,6 +5,7 @@ import catalogReducer from './catalogReducer';
 import collabaratorsReducer from './collaboratorsRedusers';
 import cartReducer from './cartReducer';
 import storageReducer from './storageReducer';
+import parametersReducer from './parametersReducer';
 import thunk from 'redux-thunk';
 
 const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
 	collabarators: collabaratorsReducer,
 	catalog: catalogReducer,
 	cart: cartReducer,
-})
+	parameters: parametersReducer
+});
 
-export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
+export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));

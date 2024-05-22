@@ -1,11 +1,13 @@
 const SET_CALLOBORATORS = "SET_CALLOBORATORS";
+const SET_CALLOBORATORS_BS = "SET_CALLOBORATORS_BS";
 const SET_CALLOBORATOR = "SET_CALLOBORATOR";
 const RESET_CALLOBORATOR = "RESET_CALLOBORATOR";
 const LOADING_ERROR = "LOADING_ERROR";
 
 const defaultState = {
   item: null,
-  items: [],
+  items: null,
+  itemsBs: null,
   isFetching: true,
   isError: false,
 };
@@ -18,10 +20,18 @@ function collabaratorsReducer(state = defaultState, action) {
         items: action.payload,
         isFetching: false,
       };
-    case SET_CALLOBORATOR:
+    case SET_CALLOBORATORS_BS:
       return {
         ...state,
-        item: state.items.find((item) => item.id === action.payload),
+        itemsBs: action.payload,
+        isFetching: false,
+      };
+    case SET_CALLOBORATOR:
+      const collaborators = action.payload.collaborators;
+      const id = action.payload.id;
+      return {
+        ...state,
+        item: collaborators.find((item) => item.id === id),
       };
     case RESET_CALLOBORATOR:
       return {
@@ -44,9 +54,13 @@ export const setCollaborators = (collabarators) => ({
   type: SET_CALLOBORATORS,
   payload: collabarators,
 });
-export const setCollaborator = (id) => ({
+export const setCollaboratorsBs = (collabarators) => ({
+  type: SET_CALLOBORATORS_BS,
+  payload: collabarators,
+});
+export const setCollaborator = (id, collaborators) => ({
   type: SET_CALLOBORATOR,
-  payload: id,
+  payload: {id,collaborators},
 });
 export const resetCollaborator = () => ({
   type: RESET_CALLOBORATOR,

@@ -11,7 +11,8 @@ async function loopFunc ({url, data = {}, checkFunc}, delay = 1000, attempt = 0)
             method: 'POST',
             url: url,
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${global.config.sid}`
             },
             data
         })
@@ -27,12 +28,16 @@ async function loopFunc ({url, data = {}, checkFunc}, delay = 1000, attempt = 0)
     }, delay);
 }
 
-export const sendPaymentToGate = (payload) => {
+export const sendPaymentToGate = (payload, button) => {
     console.log('payload:', payload)
 
     const {protocol, apiHost, apiPrefix , sid} = global.config || {};
 
-    const url = `${protocol}://${apiHost}/${apiPrefix}/open_kiosk_transaction?sid=${sid}`;
+    let url = `${protocol}://${apiHost}/${apiPrefix}/open_kiosk_transaction`;
+
+    if (button) {
+        url = url + '?button=true'
+    }
 
     const params = [
         protocol && `protocol=${protocol}`, 
@@ -51,6 +56,7 @@ export const sendPaymentToGate = (payload) => {
                 url: url,
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${global.config.sid}`
                 },
                 data: {
                     payment_type: payload.paymentMethod,
@@ -77,7 +83,10 @@ export const sendPaymentToGate = (payload) => {
         console.log('response:', response)
         if (response?.status == 200 && response?.data?.status === 'OK' && response?.data?.data?.transaction_code) {
             const transaction_code = response.data.data.transaction_code
-            const url = `${global.config.protocol}://${global.config.apiHost}/${global.config.apiPrefix}/get_kiosk_transaction_status?sid=${global.config.sid}`
+            let url = `${global.config.protocol}://${global.config.apiHost}/${global.config.apiPrefix}/get_kiosk_transaction_status`;
+            if (button) {
+                url = url + '?button=true'
+            }
             loopFunc({url, data:{transaction_code}, checkFunc: (res) => {
                 console.log('Result of chkFunc', res)
                 switch(res?.data?.data?.status) {

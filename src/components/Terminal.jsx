@@ -1,25 +1,47 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, BrowserRouter } from "react-router-dom";
 import { emptyDate } from "../reducers/cartReducer";
 import { setCollaborator } from "../reducers/collaboratorsRedusers";
+import { getCollaborators } from "./actions/collaborators";
+import Loader from "./Loader";
+import Header from "./Header";
+import LoadingDataError from "./LoadingDataError";
 // import { getCollaborators } from './actions/collaborators';
 
-function Terminal(props) {
+function Terminal({button}) {
     const url = useLocation();
 
     // const collaborators = props.collaborators
 
     const dispatch = useDispatch();
+    const [isFetching, setIsFetching] = useState(false);
 
-    // useEffect(()=>{
-    // 	dispatch(getCollaborators())
-    // }, [])
+    useEffect(()=>{
+        setIsFetching(true);
+        dispatch(getCollaborators(button));
+    }, []);
 
-    const collaborators = useSelector((state) => state.collabarators.items);
+
+
+    const collaborators0 = useSelector((state) => state.collabarators.items);
+    const collaboratorsBs = useSelector((state) => state.collabarators.itemsBs);
+
+    let collaborators;
+    if (button) {
+        collaborators = collaboratorsBs;
+    } else {
+        collaborators = collaborators0;
+    }
+
+    useEffect(() => {
+        if (collaborators) {
+            setIsFetching(false);
+        }
+    }, [collaborators]);
 
     const onClickSetCollaborator = (id) => {
-        dispatch(setCollaborator(id));
+        dispatch(setCollaborator(id, collaborators));
         dispatch(emptyDate());
     };
 
@@ -32,19 +54,25 @@ function Terminal(props) {
     const [sliderHeight, setSliderHeight] = useState(sliderHeight);
 
     useEffect(() => {
-        setParentHeight(document.getElementById("employees").clientHeight);
-        setChildHeight(document.getElementById("employeesul").clientHeight);
-        setOffsetTop(document.getElementById("employeesul").scrollTop);
+        document.getElementById("employees") && setParentHeight(document.getElementById("employees").clientHeight);
+        document.getElementById("employeesul") && setChildHeight(document.getElementById("employeesul").clientHeight);
+        document.getElementById("employeesul") && setOffsetTop(document.getElementById("employeesul").scrollTop);
         setSliderHeight(parentHeight / (childHeight / parentHeight));
     }, [parentHeight, childHeight]);
 
     useEffect(() => {
-        const el = document.getElementById("employees");
-        const handleScroll = (e) => {
-            setOffsetTop(el.scrollTop);
-        };
-        el.addEventListener("scroll", handleScroll);
-        return () => el.removeEventListener("scroll", handleScroll);
+        let el;
+        let handleScroll;
+        if (document.getElementById("employees")) {
+            el = document.getElementById("employees");
+            handleScroll = (e) => {
+                setOffsetTop(el.scrollTop);
+            };
+            el.addEventListener("scroll", handleScroll);
+        }
+        if (el) {
+            return () => el.removeEventListener("scroll", handleScroll);
+        }
     });
 
     const setScroolUp = () => {
@@ -60,6 +88,14 @@ function Terminal(props) {
         setOffsetTop(y);
         document.getElementById("employees").scrollTop = y;
     };
+
+    if (isFetching) {
+        return <Loader/>;
+    }
+    if (collaborators && collaborators.isError) {
+        return <LoadingDataError />;
+    }
+
 
     return (
         <>

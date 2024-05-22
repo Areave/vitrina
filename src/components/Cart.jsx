@@ -12,7 +12,7 @@ import { sendPaymentToGate } from "./actions/payment";
 import { resetModal, setModal } from "../reducers/storageReducer";
 import BarcodeReader from "react-barcode-reader";
 
-const Cart = () => {
+const Cart = ({button}) => {
     const dispatch = useDispatch();
 
     const modal = useSelector((state) => state.storage.modal);
@@ -83,7 +83,7 @@ const Cart = () => {
                     }
                     return [...acc, { id: item.id, count: 1, price: item.price }];
                 }, []),
-            })
+            }, button)
         );
     };
 
@@ -121,8 +121,8 @@ const Cart = () => {
     // };
     return (
         <>
-            <BarcodeReader onScan={handleScan} minLength="6" />
-            <div id="cart">
+            <BarcodeReader onScan={handleScan} minLength={6} />
+            <div id="cart" className={button ? 'button' : ''}>
                 <div className="cart-header">
                     <h2>
                         Košík
@@ -174,7 +174,7 @@ const Cart = () => {
                         );
                     })}
                 </div>
-                <div className="cart-bottom">
+                <div className={'cart-bottom' + `${button ? ' button' : ''}`}>
                     <div className="cart-summary">
                         <strong>Celkem:</strong>{" "}
                         <span className="cart-total">

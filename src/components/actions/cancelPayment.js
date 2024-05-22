@@ -4,7 +4,7 @@ import { setErrorGateResponse, setPaymentGateProccess } from "../../reducers/car
 
 export const cancelPayment = (payload) => {
     console.log('invoke file')
-    const url = `${global.config.protocol}://${global.config.apiHost}/${global.config.apiPrefix}/cancel_kiosk_transaction?sid=${global.config.sid}`;
+    const url = `${global.config.protocol}://${global.config.apiHost}/${global.config.apiPrefix}/cancel_kiosk_transaction`;
 
     return async (dispatch) => {
 
@@ -15,6 +15,7 @@ export const cancelPayment = (payload) => {
             url: url,
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${global.config.sid}`
             },
             data: []
         });

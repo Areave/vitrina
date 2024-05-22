@@ -131,6 +131,10 @@ ul {
     overflow-x: hidden;
     position: relative;
 }
+#categories.button:not(:empty),
+#products.button:not(:empty) {
+    background-color: #f4f4ec;
+}
 #employees:not(:empty) {
     height: 90vh;
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
@@ -182,7 +186,8 @@ ul.tiles li {
     padding: 5px;
     box-sizing: border-box;
 }
-#categories ul.tiles li {
+#categories ul.tiles li,
+#categories ul.tiles.button li {
     width: 33.33%;
 }
 ul.tiles li a,
@@ -194,6 +199,16 @@ ul.tiles li a,
     height: 15vh;
     color: #000;
     text-decoration: none;
+}
+ul.tiles.button li a,
+#products ul li.button {
+    background: #dfe3e8;
+    /*display: block;*/
+    /*font-size: 2vw;*/
+    /*text-align: center;*/
+    /*height: 15vh;*/
+    /*color: #000;*/
+    /*text-decoration: none;*/
 }
 #left-content {
     height: 90vh;
@@ -300,6 +315,16 @@ ul.tiles li a span {
     background: #e64e4e;
     color: #fff;
 }
+
+#cart.button {
+    width: 25%;
+    float: left;
+    margin-top: 0px;
+    box-sizing: border-box;
+    background: #808080;
+    color: #fff;
+}
+
 #cart > * {
     padding: 0 1vh;
     box-sizing: border-box;
@@ -367,8 +392,13 @@ ul.tiles li a span {
     background: #dcdcdc;
 }
 #cart .cart-bottom {
+     padding: 0vh 1vh;
+     background: #ff7474;
+     height: 11vh;
+ }
+#cart .cart-bottom.button {
     padding: 0vh 1vh;
-    background: #ff7474;
+    background: #b2b2b2;;
     height: 11vh;
 }
 #cart .cart-buttons {

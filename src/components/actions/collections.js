@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const printCollections = (payload) => { // goto inkasace page
 
-    const url = `${global.config.protocol}://${global.config.apiHost}/${global.config.apiPrefix}/open_terminal_collection?sid=${global.config.sid}`;
+    const url = `${global.config.protocol}://${global.config.apiHost}/${global.config.apiPrefix}/open_terminal_collection`;
 
     return async (dispatch) => {
 
@@ -15,6 +15,7 @@ export const printCollections = (payload) => { // goto inkasace page
             url: url,
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${global.config.sid}`
             },
             data: []
         });

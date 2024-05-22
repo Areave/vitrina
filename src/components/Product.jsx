@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct, removeProduct } from "../reducers/cartReducer";
 
-const Product = ({ item, index }) => {
+const Product = ({ item, index, button }) => {
     const dispatch = useDispatch();
 
     const cart = useSelector((state) => state.cart.items.filter((cartItem) => cartItem.id === item.id));
@@ -16,7 +16,7 @@ const Product = ({ item, index }) => {
     };
 
     return (
-        <li key={index}>
+        <li key={index} className={button ? 'button' : ''}>
             <a href="#" className="product-link has_image" onClick={() => add(item)}>
                 {item.image_id && (
                     <img width="100px" src={`${global.config.protocol}://${global.config.apiHost}/static/${item.presta_id}/${item.image_id}.jpg`} />

@@ -8,6 +8,7 @@ import Modal from "./modal/Modal";
 
 import logo_100czk from '../../public/img/logo_100czk.svg'
 import vitrina_logo from '../../public/img/vvitrina_logo.svg'
+import bc_logo from '../../public/img/bc-logo.png'
 
 function Main() {
 	const dispatch = useDispatch()
@@ -52,7 +53,13 @@ function Main() {
                 </Link> */}
                 {/* <Link to toggleIsModal={()=>toggleIsModal()}>Tisk prohlášení</Link> */}
                 <a onClick={()=>toggleIsModal({modalName:'receiptModal', modalParams: {buttonClose:false}, modalPayload:null})}>Tisk prohlášení</a>
+                <Link id="signpost_terminalbs" to="/terminalbs">
+                    <img src={bc_logo} alt="terminals" />
+                    <br />
+                    Beauty Coworking Time
+                </Link>
             </div>
+
             {isModal && <Modal toggleIsModal={toggleIsModal} modalParams={modalParams} modalName={modalName} modalPayload={{modalPayload}}/>}
         </>
     );
