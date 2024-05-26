@@ -12,10 +12,11 @@ import { sendPaymentToGate } from "./actions/payment";
 import { resetModal, setModal } from "../reducers/storageReducer";
 import BarcodeReader from "react-barcode-reader";
 
-const Cart = ({button}) => {
+const Cart = () => {
     const dispatch = useDispatch();
 
     const modal = useSelector((state) => state.storage.modal);
+    const currentDealer = useSelector((state) => state.dealers.item);
 
     const openModal = (newModal) => {
         newModal = {
@@ -66,6 +67,7 @@ const Cart = ({button}) => {
                 amount,
                 amountTips,
                 date,
+                dealer_id: currentDealer.id,
                 customerId: collaborator.id,
                 customerName: collaborator.name,
                 printBill: isPrintBill,
@@ -83,7 +85,7 @@ const Cart = ({button}) => {
                     }
                     return [...acc, { id: item.id, count: 1, price: item.price }];
                 }, []),
-            }, button)
+            }, currentDealer)
         );
     };
 
@@ -122,14 +124,14 @@ const Cart = ({button}) => {
     return (
         <>
             <BarcodeReader onScan={handleScan} minLength={6} />
-            <div id="cart" className={button ? 'button' : ''}>
+            <div id="cart" className={currentDealer ? currentDealer.name : ''}>
                 <div className="cart-header">
                     <h2>
                         Košík
                         {cart?.length ? (
                             <a
                                 id="cart_trash"
-                                className="fa fa-trash"
+                                className={"fa fa-trash " + `${currentDealer.name}`}
                                 onClick={() =>
                                     openModal({ name: "cleanCartModal", buttonClose: true })
                                 }
@@ -140,7 +142,7 @@ const Cart = ({button}) => {
                         )}
                     </h2>
                 </div>
-                <div id="cart-products" className="cart-products">
+                <div id="cart-products" className={"cart-products " + `${currentDealer.name}`}>
                     {/* {isServiceFee() ? (
                         <div className="cart-item">
                             <span className="cart-item-name">Goods Service Fee</span>
@@ -162,7 +164,7 @@ const Cart = ({button}) => {
                                         className="cart-item-remove fa fa-minus"
                                         onClick={() => remove(item.id)}
                                     ></a>
-                                    <span className="cart-item-quantity">
+                                    <span className={"cart-item-quantity " + `${currentDealer.name}`}>
                                         {matchCount[item.id]} ks
                                     </span>
                                     <a
@@ -174,7 +176,7 @@ const Cart = ({button}) => {
                         );
                     })}
                 </div>
-                <div className={'cart-bottom' + `${button ? ' button' : ''}`}>
+                <div className={'cart-bottom ' + `${currentDealer ? currentDealer.name : ''}`}>
                     <div className="cart-summary">
                         <strong>Celkem:</strong>{" "}
                         <span className="cart-total">
@@ -185,7 +187,7 @@ const Cart = ({button}) => {
                         <div className="cart-buttons">
                             <a
                                 href="#"
-                                className="cart-checkout pay-cash"
+                                className={"cart-checkout pay-cash " + `${currentDealer.name}`}
                                 onClick={() =>
                                     openModal({ name: "paymentMethodModal", step: "TIPS" })
                                 }

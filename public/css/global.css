@@ -131,8 +131,8 @@ ul {
     overflow-x: hidden;
     position: relative;
 }
-#categories.button:not(:empty),
-#products.button:not(:empty) {
+#categories.co-working:not(:empty),
+#products.co-working:not(:empty) {
     background-color: #f4f4ec;
 }
 #employees:not(:empty) {
@@ -187,7 +187,7 @@ ul.tiles li {
     box-sizing: border-box;
 }
 #categories ul.tiles li,
-#categories ul.tiles.button li {
+#categories ul.tiles.co-working li {
     width: 33.33%;
 }
 ul.tiles li a,
@@ -200,8 +200,8 @@ ul.tiles li a,
     color: #000;
     text-decoration: none;
 }
-ul.tiles.button li a,
-#products ul li.button {
+ul.tiles.co-working li a,
+#products ul li.co-working {
     background: #dfe3e8;
     /*display: block;*/
     /*font-size: 2vw;*/
@@ -316,12 +316,12 @@ ul.tiles li a span {
     color: #fff;
 }
 
-#cart.button {
+#cart.co-working {
     width: 25%;
     float: left;
     margin-top: 0px;
     box-sizing: border-box;
-    background: #808080;
+    background: #252525;
     color: #fff;
 }
 
@@ -345,8 +345,11 @@ ul.tiles li a span {
     border-left: 0;
     border-right: 0;
 }
+#cart .cart-products.co-working {
+    border: 2px solid #8b8b8b;
+}
 .cart-item {
-    border-bottom: 1px solid #ff8787;
+    border-bottom: 1px solid #868686;
     padding: 10px 0;
 }
 .cart-item:last-of-type {
@@ -373,6 +376,9 @@ ul.tiles li a span {
     border-left: 0;
     border-right: 0;
 }
+.cart-item .cart-item-quantity.co-working {
+    border: 2px solid #8b8b8b;
+}
 .cart-item .cart-item-remove {
     min-width: 38px;
     max-width: 38px;
@@ -396,9 +402,9 @@ ul.tiles li a span {
      background: #ff7474;
      height: 11vh;
  }
-#cart .cart-bottom.button {
+#cart .cart-bottom.co-working {
     padding: 0vh 1vh;
-    background: #b2b2b2;;
+    background: #7b7b7b;;
     height: 11vh;
 }
 #cart .cart-buttons {
@@ -418,6 +424,9 @@ ul.tiles li a span {
     font-size: 3.5vh;
     border: 2px solid #d4d4d4;
     margin: -2px 0;
+}
+.cart-buttons > a.co-working {
+    color: #252525;
 }
 #cart .cart-buttons .fa:before {
     font-size: 1.5em;
@@ -791,6 +800,9 @@ input[name="number-search"] {
     line-height: 5vh;
     display: inline-block;
     text-align: center;
+}
+#cart_trash.co-working {
+    color: #252525;
 }
 [name="number-search"] + .fa-spinner {
     position: absolute;

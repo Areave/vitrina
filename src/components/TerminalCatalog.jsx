@@ -2,17 +2,84 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addBreadcrumb, sliceBreadcrumb } from "../reducers/catalogReducer";
 import Product from "./Product";
+import Search from "./Search";
 import { getCatalog } from "./actions/catalog";
+import Loader from "./Loader";
 
-function TerminalCatalog({button}) {
+function TerminalCatalog() {
     const dispatch = useDispatch();
 
-    let catalog = useSelector((state) => state.catalog.items);
+    const currentDealer = useSelector((state) => state.dealers.item);
+    let catalog = useSelector((state) => state.catalog.items[currentDealer.name]);
     const breadcrumb = useSelector((state) => state.catalog.breadcrumb);
 
     breadcrumb.forEach((item) => {
         catalog = catalog.categories.find((cat) => cat.id === item.id);
     });
+
+    const [filterString, setFilterString] = useState("");
+    const [filteredProducts, setFilteredProducts] = useState(null);
+    const [isFetching, setIsFetching] = useState(false);
+    console.log("breadcrumb", breadcrumb);
+
+
+
+    const createSearchArray = (filterString) => {
+        const diacritData = {
+            "e": ["ě", "é"],
+            "i": ["í"],
+            "c": ["č"],
+            "s": ["š"],
+            "r": ["ř"],
+            "y": ["ý"],
+            "z": ["ž"],
+            "a": ["á"],
+            "u": ["ů", "ú"],
+            "o": ["ó"],
+            "t": ["ť"],
+            "d": ["ď"],
+            "n": ["ň"]
+        };
+
+        const searchArray = [filterString];
+
+
+
+        return searchArray;
+    };
+
+    const getFilteredProducts = (filterString, initProducts) => {
+        if (!initProducts) return [];
+        if (!initProducts.length || !filterString) return initProducts;
+        const searchArray = createSearchArray(filterString);
+        const products = [...initProducts];
+        const filteredProducts = [];
+        for (let product of products) {
+            for (let searchStringVariant of searchArray) {
+                if (product.title.toLowerCase().includes(searchStringVariant.toLowerCase())) {
+                    filteredProducts.push(product);
+                }
+            }
+        }
+        return filteredProducts;
+        // return products.filter(product => product.title.includes(filterString));
+    };
+
+    let products;
+
+    if (catalog) {
+        products = getFilteredProducts(filterString, catalog.products);
+    }
+
+    // if (filterString) {
+    //     catalog = catalog.filter((product) => {
+    //         return product.title.contains(filterString);
+    //     });
+    // };
+
+    useEffect(() => {
+        setFilterString("");
+    }, [breadcrumb]);
 
     const chooseCategory = (item) => {
         dispatch(addBreadcrumb(item));
@@ -23,37 +90,49 @@ function TerminalCatalog({button}) {
     };
 
     useEffect(() => {
-        dispatch(getCatalog(button));
+        setIsFetching(true);
+        dispatch(getCatalog(currentDealer));
     }, []);
 
     useEffect(() => {
-		let UPC = '';
-		document.addEventListener("keydown", function(e) {
-			const textInput = e.key || String.fromCharCode(e.keyCode);
-			const targetName = e.target.localName;
-			let newUPC = '';
-			if (textInput && textInput.length === 1 && targetName !== 'input'){
-				newUPC = UPC+textInput;
-	
-			  if (newUPC.length >= 6) {
-				console.log('barcode scanned:  ', newUPC);
-			  } 
-		   }
-		});
+        if (catalog && isFetching) {
+            setIsFetching(false);
+        }
+    }, [catalog]);
+
+    useEffect(() => {
+        let UPC = "";
+        document.addEventListener("keydown", function(e) {
+            const textInput = e.key || String.fromCharCode(e.keyCode);
+            const targetName = e.target.localName;
+            let newUPC = "";
+            if (textInput && textInput.length === 1 && targetName !== "input") {
+                newUPC = UPC + textInput;
+
+                if (newUPC.length >= 6) {
+                    console.log("barcode scanned:  ", newUPC);
+                }
+            }
+        });
     }, []);
 
-	/* 
-	Scroll
-	 */
+    /*
+    Scroll
+     */
     const [parentHeight, setParentHeight] = useState(0);
     const [childHeight, setChildHeight] = useState(0);
     const [offsetTop, setOffsetTop] = useState(0);
     const [sliderHeight, setSliderHeight] = useState(0);
 
+
     useEffect(() => {
-        setParentHeight(document.getElementById("left-content").clientHeight);
-        setChildHeight(document.getElementById("categories").clientHeight + document.getElementById("products").clientHeight);
-        setOffsetTop(document.getElementById("left-content").scrollTop);
+        console.log("filterString", filterString);
+    }, [filterString]);
+
+    useEffect(() => {
+        setParentHeight(document.getElementById("left-content")?.clientHeight);
+        setChildHeight(document.getElementById("categories")?.clientHeight + document.getElementById("products")?.clientHeight);
+        setOffsetTop(document.getElementById("left-content")?.scrollTop);
         setSliderHeight(parentHeight / (childHeight / parentHeight));
     }, [parentHeight, childHeight, breadcrumb]);
 
@@ -74,16 +153,20 @@ function TerminalCatalog({button}) {
     };
 
     const setScroolDown = () => {
-		if (offsetTop >=  childHeight - parentHeight) return;
+        if (offsetTop >= childHeight - parentHeight) return;
         const y = offsetTop + 100;
         setOffsetTop(y);
         document.getElementById("left-content").scrollTop = y;
     };
 
+    if (isFetching) {
+        return <Loader/>;
+    }
+
     return (
         <>
             <div id="left-content" className="big-content">
-                <div id="categories" className={'unvisibled' + `${button ? ' button' : ''}`} style={{ opacity: 1 }}>
+                <div id="categories" className={"unvisibled " + `${currentDealer ? currentDealer.name : ""}`} style={{ opacity: 1 }}>
                     {breadcrumb.length ? (
                         <div className="breadcrumb" style={{ width: "100%" }}>
                             <a className="breadcrumb-item breadcrumb-home" onClick={() => returnCategory(-1)}>
@@ -102,7 +185,7 @@ function TerminalCatalog({button}) {
                     ) : (
                         <></>
                     )}
-                    <ul className={'tiles' + `${button ? ' button' : ''}`}>
+                    <ul className={"tiles " + `${currentDealer ? currentDealer.name : ""}`}>
                         {catalog?.categories?.map((item, index) => {
                             return (
                                 <li key={index}>
@@ -117,10 +200,11 @@ function TerminalCatalog({button}) {
                     {/*<ul className={'tiles' + `${button ? ' button' : ''}`}></ul>*/}
                 </div>
 
-                <div id="products" className={`${button ? ' button' : ''}`} >
+                <div id="products" className={currentDealer ? currentDealer.name : ""}>
+                    <Search setFilterString={setFilterString}/>
                     <ul>
-                        {catalog?.products?.filter(item => item.type !== 'GOODS_SERVICE_FEE').map((item, index) => {
-                            return <Product item={item} index={index} button={button}/>;
+                        {products && products.filter(item => item.type !== "GOODS_SERVICE_FEE").map((item, index) => {
+                            return <Product item={item} index={index}/>;
                         })}
                     </ul>
                 </div>
@@ -130,7 +214,7 @@ function TerminalCatalog({button}) {
                         className="simulate-bar"
                         style={{
                             height: sliderHeight + "px",
-                            marginTop: offsetTop / (childHeight / parentHeight) + "px",
+                            marginTop: offsetTop / (childHeight / parentHeight) + "px"
                         }}
                     ></div>
                     <div className="fa fa-chevron-circle-up" onClick={() => setScroolUp()}></div>

@@ -9,33 +9,29 @@ import Header from "./Header";
 import LoadingDataError from "./LoadingDataError";
 // import { getCollaborators } from './actions/collaborators';
 
-function Terminal({button}) {
+function Terminal() {
     const url = useLocation();
 
     // const collaborators = props.collaborators
 
     const dispatch = useDispatch();
+    const currentDealer = useSelector((state) => state.dealers.item);
     const [isFetching, setIsFetching] = useState(false);
+    const collaborators = useSelector((state) => state.collabarators.items[currentDealer.name]);
 
     useEffect(()=>{
-        setIsFetching(true);
-        dispatch(getCollaborators(button));
+        if (!collaborators) {
+            setIsFetching(true);
+            dispatch(getCollaborators(currentDealer));
+        }
     }, []);
 
 
 
-    const collaborators0 = useSelector((state) => state.collabarators.items);
-    const collaboratorsBs = useSelector((state) => state.collabarators.itemsBs);
 
-    let collaborators;
-    if (button) {
-        collaborators = collaboratorsBs;
-    } else {
-        collaborators = collaborators0;
-    }
 
     useEffect(() => {
-        if (collaborators) {
+        if (collaborators?.length) {
             setIsFetching(false);
         }
     }, [collaborators]);

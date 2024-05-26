@@ -28,16 +28,17 @@ async function loopFunc ({url, data = {}, checkFunc}, delay = 1000, attempt = 0)
     }, delay);
 }
 
-export const sendPaymentToGate = (payload, button) => {
+export const sendPaymentToGate = (payload, currentDealer) => {
     console.log('payload:', payload)
 
     const {protocol, apiHost, apiPrefix , sid} = global.config || {};
 
     let url = `${protocol}://${apiHost}/${apiPrefix}/open_kiosk_transaction`;
+    let data = {};
 
-    if (button) {
-        url = url + '?button=true'
-    }
+    // if (currentDealer) {
+    //     data = {id: currentDealer.id}
+    // }
 
     const params = [
         protocol && `protocol=${protocol}`, 
@@ -65,6 +66,7 @@ export const sendPaymentToGate = (payload, button) => {
                     // url_fail: `${window.location.origin}/error-payment` + (params && `/?${params}`),
                     url_fail: null,
                     currency: "CZK",
+                    dealer_id: payload.dealer_id,
                     amount: payload.amount,
                     commission: payload.amountTips || 0,
                     sum: payload.amount + (payload.amountTips || 0),

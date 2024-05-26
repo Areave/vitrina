@@ -7,13 +7,15 @@ import cartReducer from './cartReducer';
 import storageReducer from './storageReducer';
 import parametersReducer from './parametersReducer';
 import thunk from 'redux-thunk';
+import dealersReducer from "./dealersRedusers";
 
 const rootReducer = combineReducers({
 	storage: storageReducer,
 	collabarators: collabaratorsReducer,
 	catalog: catalogReducer,
 	cart: cartReducer,
-	parameters: parametersReducer
+	parameters: parametersReducer,
+	dealers: dealersReducer
 });
 
 export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));

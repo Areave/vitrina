@@ -7,10 +7,12 @@ import { getCollaborators } from "./actions/collaborators";
 import { getCatalog } from "./actions/catalog";
 import { resetCollaborator } from "../reducers/collaboratorsRedusers";
 
-const Wrapper = ({button}) => {
+const Wrapper = ({id}) => {
+
+	console.log("id wp", id);
 
 	const collaborator = useSelector(state => state.collabarators.item);
-	const dispatch = useDispatch()
+	const dispatch = useDispatch();
 
 
 
@@ -28,12 +30,12 @@ const Wrapper = ({button}) => {
 			{ collaborator ? 
 				(
 					<>
-						<TerminalCatalog button={button}/>
-						<Cart button={button}/>
+						<TerminalCatalog/>
+						<Cart/>
 					</>
 				) 
 			: 
-				(<Terminal button={button}/>)
+				(<Terminal/>)
 			}	
 		</>
 	)

@@ -1,13 +1,11 @@
 const SET_CALLOBORATORS = "SET_CALLOBORATORS";
-const SET_CALLOBORATORS_BS = "SET_CALLOBORATORS_BS";
 const SET_CALLOBORATOR = "SET_CALLOBORATOR";
 const RESET_CALLOBORATOR = "RESET_CALLOBORATOR";
 const LOADING_ERROR = "LOADING_ERROR";
 
 const defaultState = {
   item: null,
-  items: null,
-  itemsBs: null,
+  items: {main: []},
   isFetching: true,
   isError: false,
 };
@@ -15,15 +13,15 @@ const defaultState = {
 function collabaratorsReducer(state = defaultState, action) {
   switch (action.type) {
     case SET_CALLOBORATORS:
+      let key;
+      if (action.payload.currentDealer) {
+        key = action.payload.currentDealer.name;
+      } else {
+        key = 'main';
+      }
       return {
         ...state,
-        items: action.payload,
-        isFetching: false,
-      };
-    case SET_CALLOBORATORS_BS:
-      return {
-        ...state,
-        itemsBs: action.payload,
+        items: {...state.items, [key]: action.payload.collabarators},
         isFetching: false,
       };
     case SET_CALLOBORATOR:
@@ -50,13 +48,9 @@ function collabaratorsReducer(state = defaultState, action) {
 }
 export default collabaratorsReducer;
 
-export const setCollaborators = (collabarators) => ({
+export const setCollaborators = (collabarators, currentDealer) => ({
   type: SET_CALLOBORATORS,
-  payload: collabarators,
-});
-export const setCollaboratorsBs = (collabarators) => ({
-  type: SET_CALLOBORATORS_BS,
-  payload: collabarators,
+  payload: {collabarators, currentDealer},
 });
 export const setCollaborator = (id, collaborators) => ({
   type: SET_CALLOBORATOR,

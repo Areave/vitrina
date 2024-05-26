@@ -1,66 +1,86 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { emptyCart } from "../reducers/cartReducer";
 import { sliceBreadcrumb } from "../reducers/catalogReducer";
-import { resetModal } from "../reducers/storageReducer"
+import { resetModal } from "../reducers/storageReducer";
 import Modal from "./modal/Modal";
-
-import logo_100czk from '../../public/img/logo_100czk.svg'
-import vitrina_logo from '../../public/img/vvitrina_logo.svg'
-import bc_logo from '../../public/img/bc-logo.png'
+import SalonButton from "./SalonButton";
+import vitrina_logo from "../../public/img/vvitrina_logo.svg";
+import logo_100czk from "../../public/img/logo_100czk.svg";
 
 function Main() {
-	const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const dealers = useSelector((state) => state.dealers);
 
-    const [isModal, setIsModal] = useState(false)
-    const [modalName, setModalName] = useState(null)
-    const [modalParams, setModalParams] = useState(null)
-    const [modalPayload, setModalPayload] = useState(null)
-	
+    const [isModal, setIsModal] = useState(false);
+    const [modalName, setModalName] = useState(null);
+    const [modalParams, setModalParams] = useState(null);
+    const [modalPayload, setModalPayload] = useState(null);
+
     useEffect(() => {
-		dispatch(emptyCart())
-		dispatch(sliceBreadcrumb())
-        dispatch(resetModal())
-	}, [])
+        dispatch(emptyCart());
+        dispatch(sliceBreadcrumb());
+        dispatch(resetModal());
+    }, []);
 
-	
+
     const toggleIsModal = (params) => {
-        setModalParams(params?.modalParams)
-        setModalName(params?.modalName)
-        setModalPayload(params?.modalPayload)
-        setIsModal(!isModal)
-    }
+        setModalParams(params?.modalParams);
+        setModalName(params?.modalName);
+        setModalPayload(params?.modalPayload);
+        setIsModal(!isModal);
+    };
 
 
     return (
         <>
             <div id="signposts">
-                <Link id="signpost_terminal" to="/terminal">
-                    <img src={logo_100czk} alt="terminals" />
-                    <br />
-                    Terminál
-                </Link>
+                {dealers.items?.length > 0 && dealers.items.map(dealer => {
+                    return <SalonButton key={dealer.id} dealer={dealer}/>
+                })}
+                {/*<Link id="signpost_terminal" to="/terminal">*/}
+                {/*    <img src={logo_100czk} alt="terminals"/>*/}
+                {/*    <br/>*/}
+                {/*    Terminál*/}
+                {/*</Link>*/}
+                {/*<Link id="signpost_terminal" to="/terminal">*/}
+                {/*    <img src={bc_logo} alt="terminals"/>*/}
+                {/*    <br/>*/}
+                {/*    Beauty Coworking Time*/}
+                {/*</Link>*/}
+                {/*<div className={'salon_button vvitrina'} onClick={() => {*/}
+                {/*    navigate('/shop/?iframe=https://vvitrina.cz/');*/}
+                {/*}}>*/}
+                {/*    <div className={"img_container " + name}>*/}
+                {/*        <img src={vitrina_logo} alt="VVitrina"/>*/}
+                {/*    </div>*/}
+                {/*    /!*<div className={"label " + name}>*!/*/}
+                {/*    /!*    {labels[name] || 'Terminal'}*!/*/}
+                {/*    /!*</div>*!/*/}
+                {/*</div>*/}
                 <Link to="/shop/?iframe=https://vvitrina.cz/">
-					<img className="img-responsive" src={vitrina_logo} alt="VVitrina" />
-				</Link>
+                    <img className="img-responsive" src={vitrina_logo} alt="VVitrina"/>
+                </Link>
+
                 {/* <Link to="/reservation">Rezervace</Link> */}
                 {/* <Link to toggleIsModal={()=>toggleIsModal()}>Inkasace</Link> */}
-                <a onClick={()=>toggleIsModal({modalName:'collectionsModal', modalParams: {buttonClose:false}, modalPayload:null})}>Inkasace</a>
+                <a onClick={() => toggleIsModal({
+                    modalName: "collectionsModal",
+                    modalParams: { buttonClose: false },
+                    modalPayload: null
+                })}>Inkasace</a>
                 {/* <Link to="--><!--?iframe=https://calendar.google.com/calendar/embed?src=100czkluka%40gmail.com&ctz=Europe%2FPrague" className="calendar">Kalendář</Link> */}
                 {/* <Link to="/mass" className="mass">
                     Hromadné Zadání
                 </Link> */}
                 {/* <Link to toggleIsModal={()=>toggleIsModal()}>Tisk prohlášení</Link> */}
-                <a onClick={()=>toggleIsModal({modalName:'receiptModal', modalParams: {buttonClose:false}, modalPayload:null})}>Tisk prohlášení</a>
-                <Link id="signpost_terminalbs" to="/terminalbs">
-                    <img src={bc_logo} alt="terminals" />
-                    <br />
-                    Beauty Coworking Time
-                </Link>
+                <a onClick={() => toggleIsModal({ modalName: "receiptModal", modalParams: { buttonClose: false }, modalPayload: null })}>Tisk
+                    prohlášení</a>
+
             </div>
 
-            {isModal && <Modal toggleIsModal={toggleIsModal} modalParams={modalParams} modalName={modalName} modalPayload={{modalPayload}}/>}
+            {isModal && <Modal toggleIsModal={toggleIsModal} modalParams={modalParams} modalName={modalName} modalPayload={{ modalPayload }}/>}
         </>
     );
 }

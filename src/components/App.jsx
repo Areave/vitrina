@@ -8,6 +8,7 @@ import Reservation from "./Reservation";
 import Error404 from "./Error404";
 import { useDispatch, useSelector } from "react-redux";
 import { getCollaborators } from "./actions/collaborators";
+import { getDealers } from "./actions/dealers";
 import { getCatalog } from "./actions/catalog";
 import Loader from "./Loader";
 import LoadingDataError from "./LoadingDataError";
@@ -18,6 +19,7 @@ import ErrorPayment from "./ErrorPayment";
 function App() {
     const dispatch = useDispatch();
     const collaborators = useSelector((state) => state.collabarators);
+    const dealers = useSelector((state) => state.dealers);
     const catalog = useSelector((state) => state.catalog);
 
     const urlParam = new URLSearchParams(window.location.search);
@@ -27,6 +29,8 @@ function App() {
     if (!token_key) {
         // apiUrl = 'https://api.dev.100czk.cz/api_v2/';
     }
+
+    const [isBsMode, setIsBsMode] = useState(null);
 
     // useEffect(() => {
     //     dispatch(getCollaborators());
@@ -47,10 +51,20 @@ function App() {
     // }, []);
 
     useEffect(() => {
-        // dispatch(getCollaborators());
-        // dispatch(getCatalog());
-        // dispatch(resetCollaborator());
+        dispatch(getDealers());
+        dispatch(getCollaborators());
+        dispatch(getCatalog());
     }, []);
+
+    useEffect(() => {
+        console.log("dealers", dealers);
+    }, [dealers]);
+    useEffect(() => {
+        if (dealers.item) {
+            console.log("dealer #", dealers.item.id);
+            localStorage.setItem('currentDealer', dealers.item)
+        }
+    }, [dealers.item]);
 
     return (
         <>
@@ -58,8 +72,8 @@ function App() {
                 <Header />
                 <Routes>
                     <Route exact path="/" element={<Main />} />
-                    <Route exact path="/terminal" element={<WrapperTerminal />} />
-                    <Route exact path="/terminalbs" element={<WrapperTerminal button={true}/>} />
+                    <Route exact path="/terminal" element={<WrapperTerminal id={dealers.item?.id}/>} />
+                    {/*<Route exact path="/terminalbs" element={<WrapperTerminal button={true}/>} />*/}
                     {/* <Route exact path="/terminal/:name" element={<TerminalCatalog />} /> */}
                     <Route exact path="/shop" element={<Shop />} />
                     {/*<Route exact path="/reservation" element={<Reservation />} />*/}
