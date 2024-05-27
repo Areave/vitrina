@@ -36,7 +36,7 @@ const _default = global.config = {
 	protocol: protocol || 'https',
 	apiHost: api_host || 'api.dev.100czk.cz',
 	apiPrefix: api_pref ?? 'api_v3',
-	sid: 'c5a8667af8e5fdbfa52a4882c71434e93zJuClG1VwD86lMRRClrgwRNZbnRr81wRTHL1NQCX2pH5QAEFSuOtbHqUok82r8Tu4SsGkVQ2YxHYUsNLXk2zwlRxr2vt2qtVRJjwEOJpW7LleEVKoF4Q75jxDcINcSi2piXNwA0X4P0cPyMj7LFWwHuqb85gpgCLo6giGIpA8OHcNnlKLu7MftyBZ4FqahPvrhjni9Bh9Y8WGC1eJskvJvNZUABBxMwGUHXN8Dx1JtZAse1fHBG8Q8VFHxsv9BgKLrSP3sPa3HDq54kwfup4cemfZPlG9Z7vl56yQrQbxqM8TJadZQS9KwaljhKG3bfFHNKHh1D101U1CyqBTPESNEbIBEU62Bj4dsuvwybp4mTbXTGnd3OxtrAlWgqcxldImIAfbCSMtVx8P7ielEp0wa4bBFPhnREGI6FMCivjPxgRrfkoQaNYQYClh5MDPYWBo5n6ZKnPCvoxNpTrXtasqClcVjNmJfxKv8sxEVVwd5GvBEFOo4KsGwMITur4pAda3CJh9pTe6G6HMCh4Bai',
+	sid: sid,
 	// protocol: 'http',
 	// apiHost: 'localhost:4200',
 	// apiPrefix: '',
@@ -48,6 +48,7 @@ const _default = global.config = {
 if(!sid) {
 	const t = getToken();
 	console.log("t", t);
+	global.config.sid='c5a8667af8e5fdbfa52a4882c71434e93zJuClG1VwD86lMRRClrgwRNZbnRr81wRTHL1NQCX2pH5QAEFSuOtbHqUok82r8Tu4SsGkVQ2YxHYUsNLXk2zwlRxr2vt2qtVRJjwEOJpW7LleEVKoF4Q75jxDcINcSi2piXNwA0X4P0cPyMj7LFWwHuqb85gpgCLo6giGIpA8OHcNnlKLu7MftyBZ4FqahPvrhjni9Bh9Y8WGC1eJskvJvNZUABBxMwGUHXN8Dx1JtZAse1fHBG8Q8VFHxsv9BgKLrSP3sPa3HDq54kwfup4cemfZPlG9Z7vl56yQrQbxqM8TJadZQS9KwaljhKG3bfFHNKHh1D101U1CyqBTPESNEbIBEU62Bj4dsuvwybp4mTbXTGnd3OxtrAlWgqcxldImIAfbCSMtVx8P7ielEp0wa4bBFPhnREGI6FMCivjPxgRrfkoQaNYQYClh5MDPYWBo5n6ZKnPCvoxNpTrXtasqClcVjNmJfxKv8sxEVVwd5GvBEFOo4KsGwMITur4pAda3CJh9pTe6G6HMCh4Bai'
 }
 
 export { _default as default };
