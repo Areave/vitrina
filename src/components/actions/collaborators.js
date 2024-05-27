@@ -10,7 +10,7 @@ export const getCollaborators = (currentDealer) => {
     let url = `${global.config.protocol}://${global.config.apiHost}${global.config.apiPrefix ? "/" + global.config.apiPrefix : ""}/get_kiosk_collaborators`;
     let data = {};
     if (currentDealer) {
-        data = { id: currentDealer.id };
+        data = { dealer_id: currentDealer.id };
     }
 
 
