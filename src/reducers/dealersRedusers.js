@@ -1,6 +1,6 @@
 const SET_DEALERS = "SET_DEALERS";
 const SET_DEALER = "SET_DEALER";
-const RESET_DEALERS = "RESET_DEALERS";
+const RESET_DEALER = "RESET_DEALER";
 const LOADING_ERROR = "LOADING_ERROR";
 
 const defaultDealer = {
@@ -8,8 +8,8 @@ const defaultDealer = {
   id: 0
 };
 const defaultState = {
-  item: defaultDealer,
-  items: [defaultDealer],
+  item: null,
+  items: null,
   isError: false,
   isFetching: false
 };
@@ -17,20 +17,24 @@ const defaultState = {
 function dealersReducer(state = defaultState, action) {
   switch (action.type) {
     case SET_DEALERS:
-      return {
+      const newState = {
         ...state,
-        items: [...state.items, ...action.payload],
+        items: [defaultDealer, ...action.payload],
         isFetching: false,
       };
+      if (action.payload.length === 1) {
+        newState.item = action.payload[0];
+      }
+      return newState;
     case SET_DEALER:
       return {
         ...state,
         item: state.items.find((item) => item.id === action.payload.id),
       };
-    case RESET_DEALERS:
+    case RESET_DEALER:
       return {
         ...state,
-        item: defaultDealer
+        item: null
       }
     case LOADING_ERROR:
       return {
@@ -48,8 +52,8 @@ export const setDealers = (dealers) => ({
   type: SET_DEALERS,
   payload: dealers,
 });
-export const resetDealers = () => ({
-  type: RESET_DEALERS
+export const resetDealer = () => ({
+  type: RESET_DEALER
 });
 export const setDealer = (id) => ({
   type: SET_DEALER,

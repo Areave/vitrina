@@ -20,7 +20,7 @@ export const getCatalog = (currentDealer) => {
 			},
 			data
 		});
-		if (Array.isArray(response?.data?.data)) {
+		if (response?.data?.data) {
 			dispatch(setCatalog(response?.data?.data, currentDealer));
 			dispatch(setItemServiceFee(response?.data?.data.products.filter(item => item.type === 'GOODS_SERVICE_FEE')?.[0]))
 		}

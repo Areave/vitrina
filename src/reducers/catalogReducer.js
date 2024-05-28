@@ -5,7 +5,7 @@ const SLICE_BREADCRUMB = 'SLICE_BREADCRUMB'
 
 const defaultState = {
 	breadcrumb: [],
-	items: {main: []},
+	items: {},
 	isFetching: true
 }
 

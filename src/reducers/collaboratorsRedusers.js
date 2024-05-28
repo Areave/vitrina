@@ -5,7 +5,7 @@ const LOADING_ERROR = "LOADING_ERROR";
 
 const defaultState = {
   item: null,
-  items: {main: []},
+  items: {},
   isFetching: true,
   isError: false,
 };

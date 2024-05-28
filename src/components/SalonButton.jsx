@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import logo_100czk from "../../public/img/logo_100czk.svg";
 import bc_logo from "../../public/img/bc-logo.png";
-import { resetDealers, setDealer } from "../reducers/dealersRedusers";
+import { resetDealer, setDealer } from "../reducers/dealersRedusers";
 import '../../public/css/salonButton.css'
 
 const SalonButton = ({dealer}) => {

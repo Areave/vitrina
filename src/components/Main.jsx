@@ -8,6 +8,11 @@ import Modal from "./modal/Modal";
 import SalonButton from "./SalonButton";
 import vitrina_logo from "../../public/img/vvitrina_logo.svg";
 import logo_100czk from "../../public/img/logo_100czk.svg";
+import LoadingDataError from "./LoadingDataError";
+import { getDealers } from "./actions/dealers";
+import { getCollaborators } from "./actions/collaborators";
+import { getCatalog } from "./actions/catalog";
+import Loader from "./Loader";
 
 function Main() {
     const dispatch = useDispatch();
@@ -17,6 +22,27 @@ function Main() {
     const [modalName, setModalName] = useState(null);
     const [modalParams, setModalParams] = useState(null);
     const [modalPayload, setModalPayload] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        if (!dealers.items) {
+            setIsLoading(true);
+            dispatch(getDealers());
+        }
+    }, []);
+
+    useEffect(() => {
+        if (dealers.items && isLoading) {
+            setIsLoading(false);
+        }
+    }, [dealers]);
+
+    useEffect(() => {
+        if (dealers.item) {
+            // console.log("dealer #", dealers.item.id);
+            localStorage.setItem("currentDealer", dealers.item);
+        }
+    }, [dealers.item]);
 
     useEffect(() => {
         dispatch(emptyCart());
@@ -32,12 +58,19 @@ function Main() {
         setIsModal(!isModal);
     };
 
+    if (dealers.isError) {
+        return <LoadingDataError/>;
+    }
+
+    if (isLoading) {
+        return <Loader/>;
+    }
 
     return (
         <>
             <div id="signposts">
                 {dealers.items?.length > 0 && dealers.items.map(dealer => {
-                    return <SalonButton key={dealer.id} dealer={dealer}/>
+                    return <SalonButton key={dealer.id} dealer={dealer}/>;
                 })}
                 <Link to="/shop/?iframe=https://vvitrina.cz/">
                     <img className="img-responsive" src={vitrina_logo} alt="VVitrina"/>

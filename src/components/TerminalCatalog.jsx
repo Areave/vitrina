@@ -18,11 +18,100 @@ function TerminalCatalog() {
     });
 
     const [filterString, setFilterString] = useState("");
-    const [filteredProducts, setFilteredProducts] = useState(null);
+    const [filteredProducts, setFilteredProducts] = useState([]);
     const [isFetching, setIsFetching] = useState(false);
     // console.log("breadcrumb", breadcrumb);
 
+    /*
+Scroll
+ */
+    const [parentHeight, setParentHeight] = useState(0);
+    const [childHeight, setChildHeight] = useState(0);
+    const [offsetTop, setOffsetTop] = useState(0);
+    const [sliderHeight, setSliderHeight] = useState(0);
 
+    useEffect(() => {
+        let UPC = "";
+        document.addEventListener("keydown", function(e) {
+            const textInput = e.key || String.fromCharCode(e.keyCode);
+            const targetName = e.target.localName;
+            let newUPC = "";
+            if (textInput && textInput.length === 1 && targetName !== "input") {
+                newUPC = UPC + textInput;
+
+                if (newUPC.length >= 6) {
+                    // console.log("barcode scanned:  ", newUPC);
+                }
+            }
+        });
+    }, []);
+
+    useEffect(() => {
+        const el = document.getElementById("left-content");
+        const handleScroll = (e) => {
+            setOffsetTop(el.scrollTop);
+        };
+        el?.addEventListener("scroll", handleScroll);
+        return () => el?.removeEventListener("scroll", handleScroll);
+    });
+
+    useEffect(() => {
+        if (!catalog) {
+            setIsFetching(true);
+            dispatch(getCatalog(currentDealer));
+        }
+    }, []);
+
+    useEffect(() => {
+        if (catalog && catalog.products && isFetching) {
+            setIsFetching(false);
+            setFilteredProducts(catalog.products)
+        }
+    }, [catalog]);
+
+
+    useEffect(() => {
+        if (catalog) {
+            let products = getFilteredProducts(filterString, catalog.products);
+            setFilteredProducts(products)
+        }
+    }, [filterString]);
+
+
+    useEffect(() => {
+        setFilterString("");
+    }, [breadcrumb]);
+
+    useEffect(() => {
+        setParentHeight(document.getElementById("left-content")?.clientHeight);
+        setChildHeight(document.getElementById("categories")?.clientHeight + document.getElementById("products")?.clientHeight);
+        setOffsetTop(document.getElementById("left-content")?.scrollTop);
+        setSliderHeight(parentHeight / (childHeight / parentHeight));
+    }, [parentHeight, childHeight, breadcrumb]);
+
+
+    const setScroolUp = () => {
+        if (offsetTop <= 0) return;
+        const y = offsetTop - 100;
+        if (sliderHeight) setOffsetTop(y);
+        document.getElementById("left-content").scrollTop = y;
+    };
+
+    const setScroolDown = () => {
+        if (offsetTop >= childHeight - parentHeight) return;
+        const y = offsetTop + 100;
+        setOffsetTop(y);
+        document.getElementById("left-content").scrollTop = y;
+    };
+
+
+    const chooseCategory = (item) => {
+        dispatch(addBreadcrumb(item));
+    };
+
+    const returnCategory = (num) => {
+        dispatch(sliceBreadcrumb(num));
+    };
 
     const createSearchArray = (filterString) => {
         const diacritData = {
@@ -52,8 +141,8 @@ function TerminalCatalog() {
     };
 
     const getFilteredProducts = (filterString, initProducts) => {
-        if (!initProducts) return [];
-        if (!initProducts.length || !filterString) return initProducts;
+        if (!initProducts || !initProducts.length) return [];
+        if (!filterString) return initProducts;
         const searchArray = createSearchArray(filterString);
         const products = [...initProducts];
         const filteredProducts = [];
@@ -68,99 +157,6 @@ function TerminalCatalog() {
         // return products.filter(product => product.title.includes(filterString));
     };
 
-    let products;
-
-    if (catalog) {
-        products = getFilteredProducts(filterString, catalog.products);
-    }
-
-    // if (filterString) {
-    //     catalog = catalog.filter((product) => {
-    //         return product.title.contains(filterString);
-    //     });
-    // };
-
-    useEffect(() => {
-        setFilterString("");
-    }, [breadcrumb]);
-
-    const chooseCategory = (item) => {
-        dispatch(addBreadcrumb(item));
-    };
-
-    const returnCategory = (num) => {
-        dispatch(sliceBreadcrumb(num));
-    };
-
-    useEffect(() => {
-        setIsFetching(true);
-        dispatch(getCatalog(currentDealer));
-    }, []);
-
-    useEffect(() => {
-        if (catalog && isFetching) {
-            setIsFetching(false);
-        }
-    }, [catalog]);
-
-    useEffect(() => {
-        let UPC = "";
-        document.addEventListener("keydown", function(e) {
-            const textInput = e.key || String.fromCharCode(e.keyCode);
-            const targetName = e.target.localName;
-            let newUPC = "";
-            if (textInput && textInput.length === 1 && targetName !== "input") {
-                newUPC = UPC + textInput;
-
-                if (newUPC.length >= 6) {
-                    // console.log("barcode scanned:  ", newUPC);
-                }
-            }
-        });
-    }, []);
-
-    /*
-    Scroll
-     */
-    const [parentHeight, setParentHeight] = useState(0);
-    const [childHeight, setChildHeight] = useState(0);
-    const [offsetTop, setOffsetTop] = useState(0);
-    const [sliderHeight, setSliderHeight] = useState(0);
-
-
-    useEffect(() => {
-        // console.log("filterString", filterString);
-    }, [filterString]);
-
-    useEffect(() => {
-        setParentHeight(document.getElementById("left-content")?.clientHeight);
-        setChildHeight(document.getElementById("categories")?.clientHeight + document.getElementById("products")?.clientHeight);
-        setOffsetTop(document.getElementById("left-content")?.scrollTop);
-        setSliderHeight(parentHeight / (childHeight / parentHeight));
-    }, [parentHeight, childHeight, breadcrumb]);
-
-    useEffect(() => {
-        const el = document.getElementById("left-content");
-        const handleScroll = (e) => {
-            setOffsetTop(el.scrollTop);
-        };
-        el?.addEventListener("scroll", handleScroll);
-        return () => el?.removeEventListener("scroll", handleScroll);
-    });
-
-    const setScroolUp = () => {
-        if (offsetTop <= 0) return;
-        const y = offsetTop - 100;
-        if (sliderHeight) setOffsetTop(y);
-        document.getElementById("left-content").scrollTop = y;
-    };
-
-    const setScroolDown = () => {
-        if (offsetTop >= childHeight - parentHeight) return;
-        const y = offsetTop + 100;
-        setOffsetTop(y);
-        document.getElementById("left-content").scrollTop = y;
-    };
 
     if (isFetching) {
         return <Loader/>;
@@ -206,7 +202,7 @@ function TerminalCatalog() {
                 <div id="products" className={currentDealer ? currentDealer.name : ""}>
                     <Search setFilterString={setFilterString}/>
                     <ul>
-                        {products && products.filter(item => item.type !== "GOODS_SERVICE_FEE").map((item, index) => {
+                        {filteredProducts && filteredProducts.filter(item => item.type !== "GOODS_SERVICE_FEE").map((item, index) => {
                             return <Product item={item} index={index}/>;
                         })}
                     </ul>

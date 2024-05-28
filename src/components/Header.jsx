@@ -8,7 +8,7 @@ import ChangeDate from "./modal/ChangeDate";
 
 import logo_100czk from "../../public/img/logo_100czk.svg";
 import bc_logo from "../../public/img/bc-logo.png";
-import { resetDealers } from "../reducers/dealersRedusers";
+import { resetDealer } from "../reducers/dealersRedusers";
 
 function Header() {
     const dispatch = useDispatch();
@@ -35,11 +35,7 @@ function Header() {
         <>
             <div id="header">
                 <div className="logo clearfix">
-                    {/* <Link to="/terminal">
-					<img id="logo" src="/img/logo_100czk.svg" width="300" height="48" alt='Logo' />
-				</Link> */}
-                    {/*<a href="#" onClick={() => handleOnClick("/terminal")}>*/}
-                    <div className="" style={{
+                    {currentDealer && <div className="" style={{
                         padding: '0 5px',
                         height: '100%',
                         display: 'flex',
@@ -48,15 +44,10 @@ function Header() {
                     }} onClick={() => handleOnClick("/terminal")}>
                         {(!currentDealer || currentDealer.id === 0 )&& <img onClick={() => handleOnClick("/terminal")} id="logo" src={logo_100czk} width="300" height="48" alt="Logo" />}
                         {currentDealer && currentDealer.id === 48 && <img id="logo" src={bc_logo} width="48" height="48" alt="Logo" style={{margin: 'auto'}}/>}
-                    </div>
-
-                    {/*</a>*/}
+                    </div>}
                 </div>
-                {/* <Link to="/" id="signpost_url">
-                {" "}
-            </Link> */}
                 <a href="#" onClick={() => {
-                    dispatch(resetDealers());
+                    dispatch(resetDealer());
                     handleOnClick("/")}} id="signpost_url">
                     {" "}
                 </a>

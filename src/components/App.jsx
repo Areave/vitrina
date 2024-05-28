@@ -17,39 +17,18 @@ import { resetCollaborator } from "../reducers/collaboratorsRedusers";
 import ErrorPayment from "./ErrorPayment";
 
 function App() {
-    const dispatch = useDispatch();
-    const collaborators = useSelector((state) => state.collabarators);
-    const dealers = useSelector((state) => state.dealers);
-    const catalog = useSelector((state) => state.catalog);
+    // const dispatch = useDispatch();
+    // const collaborators = useSelector((state) => state.collabarators);
+    // const dealers = useSelector((state) => state.dealers);
+    // const catalog = useSelector((state) => state.catalog);
 
     const urlParam = new URLSearchParams(window.location.search);
     let token_key = urlParam.get('token_key');
     // console.log("token_key", token_key);
 
-    const [isBsMode, setIsBsMode] = useState(null);
 
-    useEffect(() => {
-        dispatch(getDealers());
-    }, []);
 
-    useEffect(() => {
-        if (!dealers.isError) {
-            // console.log("dealers", dealers);
-            dispatch(getCollaborators());
-            dispatch(getCatalog());
-        }
-    }, [dealers]);
 
-    useEffect(() => {
-        if (dealers.item) {
-            // console.log("dealer #", dealers.item.id);
-            localStorage.setItem('currentDealer', dealers.item)
-        }
-    }, [dealers.item]);
-
-    if (dealers.isError) {
-        return <LoadingDataError />
-    }
 
     return (
         <>
@@ -57,7 +36,7 @@ function App() {
                 <Header />
                 <Routes>
                     <Route exact path="/" element={<Main />} />
-                    <Route exact path="/terminal" element={<WrapperTerminal id={dealers.item?.id}/>} />
+                    <Route exact path="/terminal" element={<WrapperTerminal/>} />
                     {/*<Route exact path="/terminalbs" element={<WrapperTerminal button={true}/>} />*/}
                     {/* <Route exact path="/terminal/:name" element={<TerminalCatalog />} /> */}
                     <Route exact path="/shop" element={<Shop />} />
