@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addBreadcrumb, sliceBreadcrumb } from "../reducers/catalogReducer";
+import { addBreadcrumb, setCatalog, sliceBreadcrumb } from "../reducers/catalogReducer";
 import Product from "./Product";
 import Search from "./Search";
 import { getCatalog } from "./actions/catalog";
@@ -13,12 +13,13 @@ function TerminalCatalog() {
     let catalog = useSelector((state) => state.catalog.items[currentDealer.name]);
     const breadcrumb = useSelector((state) => state.catalog.breadcrumb);
 
-    breadcrumb.forEach((item) => {
-        catalog = catalog.categories.find((cat) => cat.id === item.id);
-    });
+    // breadcrumb.forEach((item) => {
+    //     catalog = catalog.categories.find((cat) => cat.id === item.id);
+    // });
 
     const [filterString, setFilterString] = useState("");
     const [filteredProducts, setFilteredProducts] = useState([]);
+    const [localCatalog, setLocalCatalog] = useState(null);
     const [isFetching, setIsFetching] = useState(false);
     // console.log("breadcrumb", breadcrumb);
 
@@ -63,31 +64,53 @@ Scroll
     }, []);
 
     useEffect(() => {
-        if (catalog && catalog.products && isFetching) {
-            setIsFetching(false);
-            setFilteredProducts(catalog.products)
+        if (catalog && catalog.products) {
+            if (isFetching) {
+                setIsFetching(false);
+            }
+            setLocalCatalog(catalog);
         }
     }, [catalog]);
 
 
-    useEffect(() => {
-        if (catalog) {
-            let products = getFilteredProducts(filterString, catalog.products);
-            setFilteredProducts(products)
-        }
-    }, [filterString]);
 
+    useEffect(() => {
+        if (localCatalog && localCatalog.products) {
+            setFilteredProducts(localCatalog.products);
+        }
+    }, [localCatalog]);
 
     useEffect(() => {
         setFilterString("");
+        if (breadcrumb.length) {
+            let newCatalog = catalog;
+            breadcrumb.forEach((item) => {
+                newCatalog = newCatalog.categories.find((cat) => {
+                    return cat.id === item.id
+                });
+            });
+            if (newCatalog) {
+                setLocalCatalog(newCatalog);
+            }
+        } else setLocalCatalog(catalog)
     }, [breadcrumb]);
+
+
+
+    useEffect(() => {
+        if (catalog && filterString && localCatalog) {
+            let products = getFilteredProducts(filterString, localCatalog.products);
+            setFilteredProducts(products);
+        }
+    }, [filterString]);
+
 
     useEffect(() => {
         setParentHeight(document.getElementById("left-content")?.clientHeight);
         setChildHeight(document.getElementById("categories")?.clientHeight + document.getElementById("products")?.clientHeight);
         setOffsetTop(document.getElementById("left-content")?.scrollTop);
         setSliderHeight(parentHeight / (childHeight / parentHeight));
-    }, [parentHeight, childHeight, breadcrumb]);
+    }, [parentHeight, childHeight, breadcrumb, localCatalog]);
 
 
     const setScroolUp = () => {
@@ -132,7 +155,7 @@ Scroll
 
         const searchArray = [filterString];
 
-        const filterStringArray = filterString.split('');
+        const filterStringArray = filterString.split("");
         for (let i = 0; i < filterStringArray.length; i++) {
 
         }
@@ -185,7 +208,7 @@ Scroll
                         <></>
                     )}
                     <ul className={"tiles " + `${currentDealer ? currentDealer.name : ""}`}>
-                        {catalog?.categories?.map((item, index) => {
+                        {localCatalog?.categories?.map((item, index) => {
                             return (
                                 <li key={index}>
                                     <a href="#" className="category-link" onClick={() => chooseCategory({ id: item.id, title: item.title })}>
@@ -200,7 +223,7 @@ Scroll
                 </div>
 
                 <div id="products" className={currentDealer ? currentDealer.name : ""}>
-                    <Search setFilterString={setFilterString}/>
+                    <Search setFilterString={setFilterString} filterString={filterString}/>
                     <ul>
                         {filteredProducts && filteredProducts.filter(item => item.type !== "GOODS_SERVICE_FEE").map((item, index) => {
                             return <Product item={item} index={index}/>;
