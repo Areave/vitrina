@@ -104,7 +104,7 @@ const Cart = () => {
         // alert(typeof barcode, barcode);
         const good = findGood(catalog, barcode);
         if (good) {
-            console.log("good:", good);
+            // console.log("good:", good);
             dispatch(addProduct(good));
         }
     };

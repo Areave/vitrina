@@ -64,7 +64,7 @@ function PaymentModal({ sendPayment }) {
         setLoaderDiv(errorPaymentGateResponse ? "open closeable" : "open");
     }, [errorPaymentGateResponse]);
 
-    console.log("modal:", modal);
+    // console.log("modal:", modal);
 
     if (!isPaymentGateProccess && modal.step === "TIPS") {
         return (

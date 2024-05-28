@@ -29,8 +29,11 @@ const getToken = async () => {
 	return await axios.get(url);
 };
 
-
-
+export const getCurrentToken = () => {
+	const token = getParams(document.location.href)?.token_key;
+	global.config.sid = token;
+	return token
+};
 
 const _default = global.config = {
 	protocol: protocol || 'https',

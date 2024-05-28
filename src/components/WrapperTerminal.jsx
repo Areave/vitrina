@@ -9,7 +9,7 @@ import { resetCollaborator } from "../reducers/collaboratorsRedusers";
 
 const Wrapper = ({id}) => {
 
-	console.log("id wp", id);
+	// console.log("id wp", id);
 
 	const collaborator = useSelector(state => state.collabarators.item);
 	const dispatch = useDispatch();

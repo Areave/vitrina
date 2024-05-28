@@ -14,7 +14,7 @@ const defaultState = {
 function storageReducer(state = defaultState, action) {
     switch (action.type) {
         case SET_MODAL:
-            console.log("SET_MODAL", action.payload);
+            // console.log("SET_MODAL", action.payload);
             return {
                 ...state,
                 modal: {

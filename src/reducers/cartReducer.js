@@ -48,8 +48,8 @@ const getFeeStat = (items) => {
 };
 
 function cartReducer(state = defaultState, action) {
-    console.log('state', state)
-    console.log('action', action)
+    // console.log('state', state)
+    // console.log('action', action)
     let items = [],
         feeStat,
         calcCountServiceFee = 0;

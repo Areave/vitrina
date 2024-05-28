@@ -29,7 +29,7 @@ async function loopFunc ({url, data = {}, checkFunc}, delay = 1000, attempt = 0)
 }
 
 export const sendPaymentToGate = (payload, currentDealer) => {
-    console.log('payload:', payload)
+    // console.log('payload:', payload)
 
     const {protocol, apiHost, apiPrefix , sid} = global.config || {};
 
@@ -82,7 +82,7 @@ export const sendPaymentToGate = (payload, currentDealer) => {
             });
         }
 
-        console.log('response:', response)
+        // console.log('response:', response)
         if (response?.status == 200 && response?.data?.status === 'OK' && response?.data?.data?.transaction_code) {
             const transaction_code = response.data.data.transaction_code
             let url = `${global.config.protocol}://${global.config.apiHost}/${global.config.apiPrefix}/get_kiosk_transaction_status`;
@@ -90,7 +90,7 @@ export const sendPaymentToGate = (payload, currentDealer) => {
                 url = url + '?button=true'
             }
             loopFunc({url, data:{transaction_code}, checkFunc: (res) => {
-                console.log('Result of chkFunc', res)
+                // console.log('Result of chkFunc', res)
                 switch(res?.data?.data?.status) {
                     case "OPERATION_FAILED":
                     case "OPERATION_TIMEOUT":

@@ -2,14 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCollaborators } from "./actions/collaborators";
 import { getCatalog } from "./actions/catalog";
+import { getCurrentToken } from "../config";
 
 function LoadingDataError({ toggleCleanCartModal }) {
   const dispatch = useDispatch();
   const [countGetData, setCountGetData] = useState(0);
 
   useEffect(() => {
-    dispatch(getCollaborators());
-    dispatch(getCatalog());
+    if (countGetData > 0) {
+      const token = getCurrentToken();
+      console.log("token", token);
+      if (token) {
+        dispatch(getCollaborators());
+        dispatch(getCatalog());
+      }
+    }
   }, [countGetData]);
 
   const retryGetData = () => {

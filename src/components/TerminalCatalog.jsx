@@ -20,7 +20,7 @@ function TerminalCatalog() {
     const [filterString, setFilterString] = useState("");
     const [filteredProducts, setFilteredProducts] = useState(null);
     const [isFetching, setIsFetching] = useState(false);
-    console.log("breadcrumb", breadcrumb);
+    // console.log("breadcrumb", breadcrumb);
 
 
 
@@ -43,7 +43,10 @@ function TerminalCatalog() {
 
         const searchArray = [filterString];
 
+        const filterStringArray = filterString.split('');
+        for (let i = 0; i < filterStringArray.length; i++) {
 
+        }
 
         return searchArray;
     };
@@ -110,7 +113,7 @@ function TerminalCatalog() {
                 newUPC = UPC + textInput;
 
                 if (newUPC.length >= 6) {
-                    console.log("barcode scanned:  ", newUPC);
+                    // console.log("barcode scanned:  ", newUPC);
                 }
             }
         });
@@ -126,7 +129,7 @@ function TerminalCatalog() {
 
 
     useEffect(() => {
-        console.log("filterString", filterString);
+        // console.log("filterString", filterString);
     }, [filterString]);
 
     useEffect(() => {

@@ -24,47 +24,32 @@ function App() {
 
     const urlParam = new URLSearchParams(window.location.search);
     let token_key = urlParam.get('token_key');
-    console.log("token_key", token_key);
-
-    if (!token_key) {
-        // apiUrl = 'https://api.dev.100czk.cz/api_v2/';
-    }
+    // console.log("token_key", token_key);
 
     const [isBsMode, setIsBsMode] = useState(null);
 
-    // useEffect(() => {
-    //     dispatch(getCollaborators());
-    // }, []);
-
-    // useEffect(() => {
-    //     let sid = urlParam.get('token_key');
-    //     if (sid) {
-    //         setSid(sid);
-    //     } else {
-    //         if (process.env.NODE_ENV === 'production') {
-    //             // TODO: обработать случай отсутствия sid в production
-    //         } else {
-    //             setIsLoading(true);
-    //             apiService.getTestToken().then(response => setSid(response.data.key));
-    //         }
-    //     }
-    // }, []);
-
     useEffect(() => {
         dispatch(getDealers());
-        dispatch(getCollaborators());
-        dispatch(getCatalog());
     }, []);
 
     useEffect(() => {
-        console.log("dealers", dealers);
+        if (!dealers.isError) {
+            // console.log("dealers", dealers);
+            dispatch(getCollaborators());
+            dispatch(getCatalog());
+        }
     }, [dealers]);
+
     useEffect(() => {
         if (dealers.item) {
-            console.log("dealer #", dealers.item.id);
+            // console.log("dealer #", dealers.item.id);
             localStorage.setItem('currentDealer', dealers.item)
         }
     }, [dealers.item]);
+
+    if (dealers.isError) {
+        return <LoadingDataError />
+    }
 
     return (
         <>

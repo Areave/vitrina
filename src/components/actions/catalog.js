@@ -20,7 +20,9 @@ export const getCatalog = (currentDealer) => {
 			},
 			data
 		});
-		dispatch(setCatalog(response?.data?.data, currentDealer));
-		dispatch(setItemServiceFee(response?.data?.data.products.filter(item => item.type === 'GOODS_SERVICE_FEE')?.[0]))
+		if (Array.isArray(response?.data?.data)) {
+			dispatch(setCatalog(response?.data?.data, currentDealer));
+			dispatch(setItemServiceFee(response?.data?.data.products.filter(item => item.type === 'GOODS_SERVICE_FEE')?.[0]))
+		}
 	}
 }

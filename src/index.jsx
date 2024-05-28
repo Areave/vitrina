@@ -14,7 +14,7 @@ import "../public/script/main.js";
 // import axios from 'axios'
 // import '../public/script/screensaver.js'
 
-console.log("store", store.getState());
+// console.log("store", store.getState());
 
 
 
