@@ -73,7 +73,6 @@ Scroll
     }, [catalog]);
 
 
-
     useEffect(() => {
         if (localCatalog && localCatalog.products) {
             setFilteredProducts(localCatalog.products);
@@ -86,21 +85,24 @@ Scroll
             let newCatalog = catalog;
             breadcrumb.forEach((item) => {
                 newCatalog = newCatalog.categories.find((cat) => {
-                    return cat.id === item.id
+                    return cat.id === item.id;
                 });
             });
             if (newCatalog) {
                 setLocalCatalog(newCatalog);
             }
-        } else setLocalCatalog(catalog)
+        } else setLocalCatalog(catalog);
     }, [breadcrumb]);
 
 
-
     useEffect(() => {
-        if (catalog && filterString && localCatalog) {
-            let products = getFilteredProducts(filterString, localCatalog.products);
-            setFilteredProducts(products);
+        if (catalog && localCatalog) {
+            if (filterString) {
+                let products = getFilteredProducts(filterString, localCatalog.products);
+                setFilteredProducts(products);
+            } else {
+                setFilteredProducts(localCatalog.products);
+            }
         }
     }, [filterString]);
 
@@ -153,13 +155,33 @@ Scroll
             "n": ["ň"]
         };
 
-        const searchArray = [filterString];
+        let searchArray = [filterString];
 
         const filterStringArray = filterString.split("");
-        for (let i = 0; i < filterStringArray.length; i++) {
-
+        for (let index = 0; index < filterStringArray.length; index++) {
+            if (diacritData[filterStringArray[index]]) {
+                const diacritVars = diacritData[filterStringArray[index]];
+                // console.log("diacritVars", diacritVars);
+                const newAr = [];
+                searchArray.forEach((searchWord) => {
+                    // console.log("searchWord", searchWord);
+                    const searchWordArray = searchWord.split("");
+                    diacritVars.forEach((variant) => {
+                        let varWord;
+                        if (index === 0) {
+                            varWord = [variant, ...searchWordArray.slice(1)].join("");
+                        } else {
+                            varWord = [...searchWordArray.slice(0, index), variant, ...searchWordArray.slice(index + 1)].join("");
+                        }
+                        // console.log("varWord", varWord);
+                        newAr.push(varWord);
+                    });
+                });
+                searchArray = [...searchArray, ...newAr];
+            }
         }
-
+        console.log("searchArray", searchArray);
+        // return [filterString];
         return searchArray;
     };
 
