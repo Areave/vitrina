@@ -3,10 +3,6 @@ const SET_DEALER = "SET_DEALER";
 const RESET_DEALER = "RESET_DEALER";
 const LOADING_ERROR = "LOADING_ERROR";
 
-const defaultDealer = {
-  name: 'main',
-  id: 0
-};
 const defaultState = {
   item: null,
   items: null,
@@ -19,7 +15,7 @@ function dealersReducer(state = defaultState, action) {
     case SET_DEALERS:
       const newState = {
         ...state,
-        items: [defaultDealer, ...action.payload],
+        items: action.payload,
         isFetching: false,
       };
       if (action.payload.length === 1) {
