@@ -154,7 +154,7 @@ function cartReducer(state = defaultState, action) {
                 amountTips: action.payload,
             };
         case SET_ITEM_SERVICE_FEE:
-            console.log("SET_ITEM_SERVICE_FEE", action.payload);
+            // console.log("SET_ITEM_SERVICE_FEE", action.payload);
             return {
                 ...state,
                 itemServiceFee: action.payload,

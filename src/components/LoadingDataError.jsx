@@ -11,7 +11,7 @@ function LoadingDataError({ toggleCleanCartModal }) {
   useEffect(() => {
     if (countGetData > 0) {
       const token = getCurrentToken();
-      console.log("token", token);
+      // console.log("token", token);
       if (token) {
         dispatch(getCollaborators());
         dispatch(getCatalog());

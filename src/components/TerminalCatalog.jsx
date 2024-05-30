@@ -180,7 +180,7 @@ Scroll
                 searchArray = [...searchArray, ...newAr];
             }
         }
-        console.log("searchArray", searchArray);
+        // console.log("searchArray", searchArray);
         // return [filterString];
         return searchArray;
     };
