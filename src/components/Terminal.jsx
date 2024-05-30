@@ -18,6 +18,7 @@ function Terminal() {
     const currentDealer = useSelector((state) => state.dealers.item);
     const [isFetching, setIsFetching] = useState(false);
     const collaborators = useSelector((state) => state.collabarators.items[currentDealer.name]);
+    const collaboratorsError = useSelector((state) => state.collabarators.isError);
 
     useEffect(()=>{
         if (!collaborators) {
@@ -27,11 +28,8 @@ function Terminal() {
     }, []);
 
 
-
-
-
     useEffect(() => {
-        if (collaborators?.length) {
+        if (collaborators?.length || collaboratorsError) {
             setIsFetching(false);
         }
     }, [collaborators]);
@@ -71,6 +69,12 @@ function Terminal() {
         }
     });
 
+    // useEffect(() => {
+    //     if (isCollaboratorsError) {
+    //         setIsFetching(false);
+    //     }
+    // }, [isCollaboratorsError]);
+
     const setScroolUp = () => {
         if (offsetTop <= 0) return;
         const y = offsetTop - 100;
@@ -85,13 +89,13 @@ function Terminal() {
         document.getElementById("employees").scrollTop = y;
     };
 
-    if (isFetching) {
-        return <Loader/>;
-    }
-    if (collaborators && collaborators.isError) {
+    if (collaboratorsError) {
         return <LoadingDataError />;
     }
 
+    if (isFetching) {
+        return <Loader/>;
+    }
 
     return (
         <>

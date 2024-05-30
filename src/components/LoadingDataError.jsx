@@ -9,14 +9,12 @@ function LoadingDataError({ toggleCleanCartModal }) {
   const [countGetData, setCountGetData] = useState(0);
 
   useEffect(() => {
-    if (countGetData > 0) {
-      const token = getCurrentToken();
-      // console.log("token", token);
-      if (token) {
+      // const token = getCurrentToken();
+      // // console.log("token", token);
+      // if (token) {
         dispatch(getCollaborators());
         dispatch(getCatalog());
-      }
-    }
+    // }
   }, [countGetData]);
 
   const retryGetData = () => {
