@@ -53,7 +53,7 @@ function App() {
             protocol: protocol || 'https',
             apiHost: api_host || 'api.dev.100czk.cz',
             apiPrefix: api_pref ?? 'api_v3',
-            sid: '6fdfd457bfe47d009a2a091f4db99c84',
+            sid: sid,
             currency: 'Kč'
         };
 
