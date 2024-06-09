@@ -56,6 +56,8 @@ function App() {
             sid: sid,
             currency: 'Kč'
         };
+        window.config = config;
+
 
         let url = `${config.protocol}://${config.apiHost}${config.apiPrefix ? "/" + config.apiPrefix : ""}/get_token_by_session_key`;
         let data = { session_key: config.sid };

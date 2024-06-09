@@ -11,7 +11,11 @@ const SalonButton = ({dealer}) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const {id, name} = dealer;
+    let {id, name} = dealer;
+
+    if (id === 14581) {
+        name = 'co-working';
+    }
 
     const labels = {
         'co-working': 'Beauty Coworking Time',
@@ -26,6 +30,8 @@ const SalonButton = ({dealer}) => {
         dispatch(setDealer(id));
         navigate('/terminal');
     };
+
+
 
     return <div className={'salon_button ' + name} onClick={onButtonClick}>
         <div className={"img_container " + name}>

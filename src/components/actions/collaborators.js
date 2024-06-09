@@ -21,7 +21,7 @@ export const getCollaborators = (currentDealer) => {
             url: url,
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${global.config.sid}`
+                "Authorization": `Bearer ${window.config.sid}`
             },
             data
         });
