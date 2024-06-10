@@ -11,21 +11,27 @@ export const getDealers = () => {
 
   return async (dispatch) => {
     
-    const response = await axios({
+    axios({
       method: "GET",
       url: url,
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${global.config.sid}`
       },
+    }).then((data) => {
+      console.log("цукцукцукц");
+      dispatch(setDealers(data.data.data));
+    }).catch((error) => {
+      console.log("о ш и б к а");
+      dispatch(setDealersLoadingError());
     });
 
     // console.log('dealers:', response)
     
-    if (Array.isArray(response?.data?.data)) {
-        dispatch(setDealers(response.data.data));
-    } else {
-      dispatch(setDealersLoadingError());
-    }
+    // if (Array.isArray(response?.data?.data)) {
+    //     dispatch(setDealers(response.data.data));
+    // } else {
+    //   dispatch(setDealersLoadingError());
+    // }
   };
 };
