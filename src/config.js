@@ -26,7 +26,7 @@ let sid = getParams(document.location.href)?.token_key;
 
 const getToken = async () => {
 	const url = `${_default.protocol}://api.dev.100czk.cz/api_v3/get_test_kiosk_token`;
-	return await axios.get(url);
+	// return await axios.get(url);
 };
 
 export const getCurrentToken = () => {
