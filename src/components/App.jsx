@@ -57,10 +57,13 @@ function App() {
             currency: 'Kč'
         };
         window.config = config;
+        console.log('sid');
+        console.log(sid);
 
 
         let url = `${config.protocol}://${config.apiHost}${config.apiPrefix ? "/" + config.apiPrefix : ""}/get_token_by_session_key`;
-        console.log('url блять', url);
+        console.log('url блять');
+        console.log(url);
         let data = { session_key: config.sid };
         // setIsLoading(true);
         console.log("url", url);
@@ -77,7 +80,8 @@ function App() {
             global.config.sid = data.data.data.token;
             console.log("global.config.sid", global.config.sid);
         }).catch((error) => {
-            console.log('error блять', error);
+            console.log('error блять');
+            console.log(error);
             setIsError(true);
         }).finally(() => {
             setIsLoading(false);
@@ -94,7 +98,7 @@ function App() {
     if (isError) {
         return <BrowserRouter>
             <Header/>
-            LoadingDataError/>
+            <LoadingDataError/>
         </BrowserRouter>;
     }
 
