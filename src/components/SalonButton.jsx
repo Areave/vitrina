@@ -38,7 +38,7 @@ const SalonButton = ({dealer}) => {
             <img src={logos[name] || logo_100czk} alt="terminals"/>
         </div>
         <div className={"label " + name}>
-            {labels[name] || 'Terminal'}
+            {name || 'Terminal'}
         </div>
     </div>
 };
