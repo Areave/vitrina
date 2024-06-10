@@ -26,8 +26,8 @@ function App() {
     const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(false);
 
-    const urlParam = new URLSearchParams(window.location.search);
-    let token_key = urlParam.get("token_key");
+    // const urlParam = new URLSearchParams(window.location.search);
+    // let token_key = urlParam.get("token_key");
     // console.log("token_key", token_key);
 
     const getParams = function(url) {
