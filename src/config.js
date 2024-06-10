@@ -38,7 +38,7 @@ export const getCurrentToken = () => {
 const _default = global.config = {
 	protocol: protocol || 'https',
 	apiHost: api_host || 'api.dev.100czk.cz',
-	apiPrefix: api_pref ?? 'api_v3',
+	apiPrefix: api_pref ?? 'api_v2',
 	sid: sid,
 	// protocol: 'http',
 	// apiHost: 'localhost:4200',

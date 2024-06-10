@@ -23,7 +23,7 @@ function App() {
     // const dealers = useSelector((state) => state.dealers);
     // const catalog = useSelector((state) => state.catalog);
 
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
 
     // const urlParam = new URLSearchParams(window.location.search);
@@ -43,67 +43,67 @@ function App() {
         return params;
     };
 
-    useEffect(async () => {
-        const protocol = getParams(document.location.href)?.protocol
-        const api_host = getParams(document.location.href)?.api_host
-        const api_pref = getParams(document.location.href)?.api_pref
-        const sid = getParams(document.location.href)?.token_key;
+    {/*useEffect(async () => {*/}
+    {/*    const protocol = getParams(document.location.href)?.protocol*/}
+    {/*    const api_host = getParams(document.location.href)?.api_host*/}
+    {/*    const api_pref = getParams(document.location.href)?.api_pref*/}
+    {/*    const sid = getParams(document.location.href)?.token_key;*/}
 
-        const config = {
-            protocol: protocol || 'https',
-            apiHost: api_host || 'api.dev.100czk.cz',
-            apiPrefix: api_pref ?? 'api_v2',
-            sid: sid,
-            currency: 'Kč'
-        };
-        window.config = config;
-        console.log('sid');
-        console.log(sid);
-
-
-        let url = `${config.protocol}://${config.apiHost}${config.apiPrefix ? "/" + config.apiPrefix : ""}/get_token_by_session_key${global.config.sid ? '?sid=' + sid : ''}`;
-        // let url = `${global.config.protocol}://${global.config.apiHost}${global.config.apiPrefix ? "/" + global.config.apiPrefix : ""}/get_token_by_session_key`;
-        // console.log('url блять');
-        console.log(url);
-        let data = { session_key: config.sid };
-        // setIsLoading(true);
-        console.log("url", url);
-        const response = await axios({
-            method: "POST",
-            url: url,
-            headers: {
-                "Content-Type": "application/json",
-                // "Authorization": `Bearer ${sid}`
-            },
-            data
-        });
-
-        if (response?.data?.data?.token) {
-            global.config.sid = response.data.data.token;
-            console.log('успех');
-            // setIsLoading(false);
-        } else {
-            console.log('ошибка');
-            console.log(response.data);
-            setIsError(true);
-            // setIsLoading(false);
-        }
-        setIsLoading(false);
-
-        //     .then((data) => {
-        //     console.log("data.data.data", data.data.data);
-        //     global.config.sid = data.data.data.token;
-        //     console.log("global.config.sid", global.config.sid);
-        // }).catch((error) => {
-        //     console.log('error блять');
-        //     console.log(error);
-        //     setIsError(true);
-        // }).finally(() => {
-        //     setIsLoading(false);
-        // });
+    {/*    const config = {*/}
+    {/*        protocol: protocol || 'https',*/}
+    //         apiHost: api_host || 'api.dev.100czk.cz',
+    //         apiPrefix: api_pref ?? 'api_v2',
+    //         sid: sid,
+    //         currency: 'Kč'
+    //     };
+    //     window.config = config;
+    {/*    console.log('sid');*/}
+    {/*    console.log(sid);*/}
 
 
-    }, []);
+    {/*    let url = `${config.protocol}://${config.apiHost}${config.apiPrefix ? "/" + config.apiPrefix : ""}/get_token_by_session_key${global.config.sid ? '?sid=' + sid : ''}`;*/}
+    {/*    // let url = `${global.config.protocol}://${global.config.apiHost}${global.config.apiPrefix ? "/" + global.config.apiPrefix : ""}/get_token_by_session_key`;*/}
+    {/*    // console.log('url блять');*/}
+    {/*    console.log(url);*/}
+    {/*    let data = { session_key: config.sid };*/}
+    {/*    // setIsLoading(true);*/}
+    {/*    console.log("url", url);*/}
+    {/*    const response = await axios({*/}
+    {/*        method: "POST",*/}
+    {/*        url: url,*/}
+    {/*        headers: {*/}
+    {/*            "Content-Type": "application/json",*/}
+    {/*            // "Authorization": `Bearer ${sid}`*/}
+    //         },
+    //         data
+    //     });
+    //
+    //     if (response?.data?.data?.token) {
+    //         global.config.sid = response.data.data.token;
+    //         console.log('успех');
+    //         // setIsLoading(false);
+    //     } else {
+    //         console.log('ошибка');
+    //         console.log(response.data);
+    //         setIsError(true);
+    //         // setIsLoading(false);
+    {/*    }*/}
+    {/*    setIsLoading(false);*/}
+
+    //     //     .then((data) => {
+    //     //     console.log("data.data.data", data.data.data);
+    //     //     global.config.sid = data.data.data.token;
+    //     //     console.log("global.config.sid", global.config.sid);
+    //     // }).catch((error) => {
+    //     //     console.log('error блять');
+    //     //     console.log(error);
+    //     //     setIsError(true);
+    //     // }).finally(() => {
+    //     //     setIsLoading(false);
+    //     // });
+    //
+    //
+    // }, []);
 
 
     if (isLoading) {
