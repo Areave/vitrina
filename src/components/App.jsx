@@ -79,15 +79,16 @@ function App() {
         });
 
         if (response.data?.data?.token) {
-            global.config.sid = data.data.data.token;
+            global.config.sid = response.data.data.token;
             console.log('успех');
-            setIsLoading(false);
+            // setIsLoading(false);
         } else {
             console.log('ошибка');
             console.log(response.data);
             setIsError(true);
-            setIsLoading(false);
+            // setIsLoading(false);
         }
+        setIsLoading(false);
 
         //     .then((data) => {
         //     console.log("data.data.data", data.data.data);
