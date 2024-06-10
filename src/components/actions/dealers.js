@@ -7,7 +7,7 @@ import {
 export const getDealers = () => {
 
   // const url = `http://localhost:4200/get_kiosk_collaborators`
-  let url = `${global.config.protocol}://${global.config.apiHost}${global.config.apiPrefix ? '/' + global.config.apiPrefix : ''}/get_kiosk_additional_dealers`;
+  let url = `${global.config.protocol}://${global.config.apiHost}${global.config.apiPrefix ? '/' + global.config.apiPrefix : ''}/get_kiosk_additional_dealers${global.config.sid ? '?sid=' + sid : ''}`;
 
   return async (dispatch) => {
     
