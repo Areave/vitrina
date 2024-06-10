@@ -33,7 +33,7 @@ export const sendPaymentToGate = (payload, currentDealer) => {
 
     const {protocol, apiHost, apiPrefix , sid} = global.config || {};
 
-    let url = `${protocol}://${apiHost}/${apiPrefix}/open_kiosk_transaction`;
+    let url = `${protocol}://${apiHost}/${apiPrefix}/open_kiosk_transaction${global.config.sid ? "?sid=" + global.config.sid : ""}`;
     let data = {};
 
     // if (currentDealer) {
