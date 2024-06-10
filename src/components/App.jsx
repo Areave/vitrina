@@ -52,7 +52,7 @@ function App() {
         const config = {
             protocol: protocol || 'https',
             apiHost: api_host || 'api.dev.100czk.cz',
-            apiPrefix: api_pref ?? 'api_v3',
+            apiPrefix: api_pref ?? 'api_v2',
             sid: sid,
             currency: 'Kč'
         };
@@ -61,9 +61,9 @@ function App() {
         console.log(sid);
 
 
-        let url = `${config.protocol}://${config.apiHost}${config.apiPrefix ? "/" + config.apiPrefix : ""}/get_token_by_session_key`;
+        let url = `${config.protocol}://${config.apiHost}${config.apiPrefix ? "/" + config.apiPrefix : ""}/get_token_by_session_key${global.config.sid ? '?sid=' + sid : ''}`;
         // let url = `${global.config.protocol}://${global.config.apiHost}${global.config.apiPrefix ? "/" + global.config.apiPrefix : ""}/get_token_by_session_key`;
-        console.log('url блять');
+        // console.log('url блять');
         console.log(url);
         let data = { session_key: config.sid };
         // setIsLoading(true);
@@ -73,7 +73,7 @@ function App() {
             url: url,
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${sid}`
+                // "Authorization": `Bearer ${sid}`
             },
             data
         });
