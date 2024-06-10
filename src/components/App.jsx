@@ -43,7 +43,7 @@ function App() {
         return params;
     };
 
-    useEffect(() => {
+    useEffect(async () => {
         const protocol = getParams(document.location.href)?.protocol
         const api_host = getParams(document.location.href)?.api_host
         const api_pref = getParams(document.location.href)?.api_pref
@@ -62,12 +62,13 @@ function App() {
 
 
         let url = `${config.protocol}://${config.apiHost}${config.apiPrefix ? "/" + config.apiPrefix : ""}/get_token_by_session_key`;
+        // let url = `${global.config.protocol}://${global.config.apiHost}${global.config.apiPrefix ? "/" + global.config.apiPrefix : ""}/get_token_by_session_key`;
         console.log('url блять');
         console.log(url);
         let data = { session_key: config.sid };
         // setIsLoading(true);
         console.log("url", url);
-        axios({
+        const response = await axios({
             method: "POST",
             url: url,
             headers: {
@@ -75,17 +76,30 @@ function App() {
                 "Authorization": `Bearer ${sid}`
             },
             data
-        }).then((data) => {
-            console.log("data.data.data", data.data.data);
-            global.config.sid = data.data.data.token;
-            console.log("global.config.sid", global.config.sid);
-        }).catch((error) => {
-            console.log('error блять');
-            console.log(error);
-            setIsError(true);
-        }).finally(() => {
-            setIsLoading(false);
         });
+
+        if (response.data?.data?.token) {
+            global.config.sid = data.data.data.token;
+            console.log('успех');
+            setIsLoading(false);
+        } else {
+            console.log('ошибка');
+            console.log(response.data);
+            setIsError(true);
+            setIsLoading(false);
+        }
+
+        //     .then((data) => {
+        //     console.log("data.data.data", data.data.data);
+        //     global.config.sid = data.data.data.token;
+        //     console.log("global.config.sid", global.config.sid);
+        // }).catch((error) => {
+        //     console.log('error блять');
+        //     console.log(error);
+        //     setIsError(true);
+        // }).finally(() => {
+        //     setIsLoading(false);
+        // });
 
 
     }, []);
