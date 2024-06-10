@@ -48,10 +48,10 @@ const _default = global.config = {
 	currency: 'Kč'
 };
 
-if(!sid) {
-	const t = getToken();
-	console.log("t", t);
-	global.config.sid='c7a6e0250cab21954634734a6e998d9b2JkCqHEwJVjgG1ZkWYmRpe8StyDKkNuc8ry6gJ3aYuNiyrpVAEsZ0blXmoeB4Fjb84e0UP4bqZBbfgYYusYoOaHBpDi8fo4fM7Sk3eCXK3wyiK52x2I8JfcQFhS43y4Jy6LwuJO8a3wD6Y3aLtc9k7n68fkMq2323Vg41u1bXXO4vIJAwAptSFQB7Dkzt36V8KCl5ASMRPMUNZrPLeXhNT1BQwf8icuY1OcaVxfnaUG6XmCSwKNtTVOakKccMqLioEGlrE6s6MYoqvdJoGgnldhOeyltuh9fEAKY2hJbONyBJtGYoqQYsYWthZUlJfbCAtwZmdGBlNEhInjhV2n8etaG9cqfbgI9WQJj6fBFfn24JYakJnLDNPfaNpBilVXoPI7AyDtm4PXO5CbbVeiMAuxiqSrLsDCJRKHeqC92WNT8ncZZOQmqktkMsBHdqCCQUfCDZW1yJyD8b79bGrXyXpXEsvwKXNBQVDszwZQ5KooTD86qhqM086MKKFkQGj2MqPrW4RwRwR1Ju0ZnZCvP'
-}
+// if(!sid) {
+// 	// const t = getToken();
+// 	// console.log("t", t);
+// 	global.config.sid='fbb4f0a45aff34df8642f6bf4f36f7319WJEWG3bEJb5yZaq4Jb3PBqwLBcJHvuWi5Oqp3rMQAPQXCxdNEAYKIQAfUqvorA2eCy1uOdprBgCsXyT5bAXDHT4uLommotsFNMWh85NuBqkJl4LKfnOcCsGhrWRmkTVjrAKraWA0I6wkZkNGtgOqEYGQRlaSQeR4SMpxHgfpyhfBv2QFBArOteu6yOb4RsTrcyFHCNszGC6cBeCfiVLNKnxpXW1I1qF2uARwcViHOr2j2x5XI0gQt7EAmaLbrk9WV6lqQ2QMfNs8wogSyoGa69d5mYqdiqtlu8KWuGA9pkhxWs8iFZydlfx1bkXG2hGJ4rL2C2ObYGuc4yhUizUPQPdOG2AlJoOvITqu2Fb8Sk5SGyhC91Bb4VxAZQQXXpVDvmbxHMpOI5Ma7fPB54NW17TyCGEtMB3VjqB5jCTscgxvp58GisFKKYsIYe7bGHCDn7NwfbrmeQLA6tiiXO3F6f1yFViIXErdS7qyeZHYbdRvDLtG671EQlHDzuTfKy94ZottCBVuADW2fy6KRgW'
+// }
 
 export { _default as default };

@@ -78,7 +78,7 @@ function App() {
             data
         });
 
-        if (response.data?.data?.token) {
+        if (response?.data?.data?.token) {
             global.config.sid = response.data.data.token;
             console.log('успех');
             // setIsLoading(false);
