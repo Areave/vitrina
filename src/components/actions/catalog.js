@@ -5,7 +5,7 @@ import { setItemServiceFee } from "../../reducers/cartReducer";
 export const getCatalog = (currentDealer) => {
 
 	// const url = `http://localhost:4200/get_kiosk_catalog`
-	let url = `${global.config.protocol}://${global.config.apiHost}${global.config.apiPrefix ? '/' + global.config.apiPrefix : ''}/get_kiosk_catalog`
+	let url = `${global.config.protocol}://${global.config.apiHost}${global.config.apiPrefix ? '/' + global.config.apiPrefix : ''}/get_kiosk_catalog${global.config.sid ? "?sid=" + global.config.sid : ""}`
 	let data = {};
 	if (currentDealer) {
 		data = { dealer_id: currentDealer.id };
@@ -16,7 +16,7 @@ export const getCatalog = (currentDealer) => {
 			url: url,
 			headers: {
 				'Content-Type': 'application/json',
-				"Authorization": `Bearer ${global.config.sid}`
+				// "Authorization": `Bearer ${global.config.sid}`
 			},
 			data
 		});

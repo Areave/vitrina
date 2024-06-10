@@ -7,7 +7,7 @@ import {
 export const getCollaborators = (currentDealer) => {
 
     // const url = `http://localhost:4200/get_kiosk_collaborators`
-    let url = `${global.config.protocol}://${global.config.apiHost}${global.config.apiPrefix ? "/" + global.config.apiPrefix : ""}/get_kiosk_collaborators`;
+    let url = `${global.config.protocol}://${global.config.apiHost}${global.config.apiPrefix ? "/" + global.config.apiPrefix : ""}/get_kiosk_collaborators${global.config.sid ? "?sid=" + global.config.sid : ""}`;
     let data = {};
     if (currentDealer) {
         data = { dealer_id: currentDealer.id };
@@ -21,7 +21,7 @@ export const getCollaborators = (currentDealer) => {
             url: url,
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${window.config.sid}`
+                // "Authorization": `Bearer ${window.config.sid}`
             },
             data
         });

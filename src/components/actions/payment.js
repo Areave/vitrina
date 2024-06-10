@@ -12,7 +12,7 @@ async function loopFunc ({url, data = {}, checkFunc}, delay = 1000, attempt = 0)
             url: url,
             headers: {
                 'Content-Type': 'application/json',
-                "Authorization": `Bearer ${global.config.sid}`
+                // "Authorization": `Bearer ${global.config.sid}`
             },
             data
         })
@@ -57,7 +57,7 @@ export const sendPaymentToGate = (payload, currentDealer) => {
                 url: url,
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${global.config.sid}`
+                    // "Authorization": `Bearer ${global.config.sid}`
                 },
                 data: {
                     payment_type: payload.paymentMethod,
@@ -85,7 +85,7 @@ export const sendPaymentToGate = (payload, currentDealer) => {
         // console.log('response:', response)
         if (response?.status == 200 && response?.data?.status === 'OK' && response?.data?.data?.transaction_code) {
             const transaction_code = response.data.data.transaction_code
-            let url = `${global.config.protocol}://${global.config.apiHost}/${global.config.apiPrefix}/get_kiosk_transaction_status`;
+            let url = `${global.config.protocol}://${global.config.apiHost}/${global.config.apiPrefix}/get_kiosk_transaction_status${global.config.sid ? "?sid=" + global.config.sid : ""}`;
             if (button) {
                 url = url + '?button=true'
             }

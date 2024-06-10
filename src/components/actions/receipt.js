@@ -3,7 +3,7 @@ import { setErrorGateResponse, setPaymentGateProccess } from "../../reducers/car
 
 
 export const printReceipt = (payload) => {
-    const url = `${global.config.protocol}://${global.config.apiHost}/${global.config.apiPrefix}/print_receipt`;
+    const url = `${global.config.protocol}://${global.config.apiHost}/${global.config.apiPrefix}/print_receipt${global.config.sid ? "?sid=" + global.config.sid : ""}`;
 
     return async (dispatch) => {
 
@@ -14,7 +14,7 @@ export const printReceipt = (payload) => {
             url: url,
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${global.config.sid}`
+                // "Authorization": `Bearer ${global.config.sid}`
             },
             data: []
         });
