@@ -72,16 +72,16 @@ function Main() {
                 {dealers.items?.length > 0 && dealers.items.map(dealer => {
                     return <SalonButton key={dealer.id} dealer={dealer}/>;
                 })}
-                <Link to="/shop/?iframe=https://vvitrina.cz/">
-                    <img className="img-responsive" src={vitrina_logo} alt="VVitrina"/>
-                </Link>
+                {/*<Link to="/shop/?iframe=https://vvitrina.cz/">*/}
+                {/*    <img className="img-responsive" src={vitrina_logo} alt="VVitrina"/>*/}
+                {/*</Link>*/}
                 <a onClick={() => toggleIsModal({
                     modalName: "collectionsModal",
                     modalParams: { buttonClose: false },
                     modalPayload: null
                 })}>Inkasace</a>
-                <a onClick={() => toggleIsModal({ modalName: "receiptModal", modalParams: { buttonClose: false }, modalPayload: null })}>Tisk
-                    prohlášení</a>
+                {/*<a onClick={() => toggleIsModal({ modalName: "receiptModal", modalParams: { buttonClose: false }, modalPayload: null })}>Tisk*/}
+                {/*    prohlášení</a>*/}
 
             </div>
 
