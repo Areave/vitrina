@@ -11,9 +11,11 @@ const SalonButton = ({dealer}) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    let {id, name} = dealer;
+    let {id, name, label} = dealer;
 
-    if (id === 14581) {
+    if (id === 0) {
+        name = 'main';
+    } else {
         name = 'co-working';
     }
 
@@ -38,7 +40,7 @@ const SalonButton = ({dealer}) => {
             <img src={logos[name] || logo_100czk} alt="terminals"/>
         </div>
         <div className={"label " + name}>
-            {name || 'Terminal'}
+            {label || 'Terminal'}
         </div>
     </div>
 };

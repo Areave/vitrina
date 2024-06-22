@@ -21,7 +21,17 @@ export const getDealers = () => {
                 }
             });
             if (data?.data?.data) {
-                dispatch(setDealers(data.data.data));
+                const dealers = data.data.data;
+                dealers.map(dealer => {
+                    dealer.label = dealer.name;
+                   if (dealer.id !== 0) {
+                       dealer.name = 'co-working'
+                   } else {
+                       dealer.name = 'main'
+                   }
+                   return dealer;
+                });
+                dispatch(setDealers(dealers));
             }
         } catch (e) {
             console.log("о ш и б к а");
