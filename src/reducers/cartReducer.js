@@ -35,16 +35,17 @@ const defaultState = {
 let items = [];
 
 const getFeeStat = (items) => {
-    return items.reduce(
+    const e = items.reduce(
         (acc, item) => {
             if (item.type === "GOODS_SERVICE") {
                 acc.isGoodsServiceFee = true;
-                acc.countAddServiceFee += item.add_service_fee ? 1 : 0;
+                acc.countAddServiceFee += (item.add_service_fee ? 1 : 0);
             }
             return acc;
         },
         { isGoodsServiceFee: false, countAddServiceFee: 0 }
     );
+    return e;
 };
 
 function cartReducer(state = defaultState, action) {
@@ -67,7 +68,10 @@ function cartReducer(state = defaultState, action) {
             feeStat = getFeeStat(items);
 
             if (feeStat.isGoodsServiceFee) {
-                calcCountServiceFee = feeStat.countAddServiceFee || 1;
+                calcCountServiceFee = feeStat.countAddServiceFee;
+                if (feeStat.countAddServiceFee !== 0 && !feeStat.countAddServiceFee) {
+                    calcCountServiceFee = 0;
+                }
             }
             if (action.payload.type === "GOODS_SERVICE_FEE") {
                 state.countServiceFeeCorrect++;
@@ -99,9 +103,13 @@ function cartReducer(state = defaultState, action) {
                     return true;
                 });
             feeStat = getFeeStat(items);
+            console.log("feeStat", feeStat);
 
             if (feeStat.isGoodsServiceFee) {
-                calcCountServiceFee = feeStat.countAddServiceFee || 1;
+                calcCountServiceFee = feeStat.countAddServiceFee;
+                if (feeStat.countAddServiceFee !== 0 && !feeStat.countAddServiceFee) {
+                    calcCountServiceFee = 0;
+                }
                 if (
                     state.itemServiceFee.id === action.payload &&
                     calcCountServiceFee + state.countServiceFeeCorrect > 0
