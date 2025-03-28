@@ -33,6 +33,7 @@ const Cart = () => {
      */
     const collaborator = useSelector((state) => state.collabarators.item);
     const cart = useSelector((state) => state.cart.items);
+    const {currency_symbol, currency_memo} = useSelector((state) => state.parameters);
     // const serviceFee = useSelector((state) => state.cart.serviceFee);
     const [isPaymentModal, setIsPaymentModal] = useState(false);
     const [isClearCartModal, setIsCleanCartModal] = useState(false);
@@ -67,6 +68,7 @@ const Cart = () => {
                 amount,
                 amountTips,
                 date,
+                currency_memo,
                 dealer_id: currentDealer.id,
                 customerId: collaborator.id,
                 customerName: collaborator.name,
@@ -156,6 +158,7 @@ const Cart = () => {
                         ""
                     )} */}
                     {matchCart.map((item) => {
+                        console.log('item', item);
                         return (
                             <div className="cart-item">
                                 <span className="cart-item-name">{item.title}</span>
@@ -180,7 +183,7 @@ const Cart = () => {
                     <div className="cart-summary">
                         <strong>Celkem:</strong>{" "}
                         <span className="cart-total">
-                            {amount} {global.config.currency}
+                            {amount} {currency_symbol || global.config.currency}
                         </span>
                     </div>
                     {cart?.length ? (

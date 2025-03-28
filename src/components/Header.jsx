@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { emptyCart } from "./../reducers/cartReducer";
@@ -9,6 +9,7 @@ import ChangeDate from "./modal/ChangeDate";
 import logo_100czk from "../../public/img/logo_100czk.svg";
 import bc_logo from "../../public/img/bc-logo.png";
 import { resetDealer } from "../reducers/dealersRedusers";
+import parametersReducer from "../reducers/parametersReducer";
 
 function Header() {
     const dispatch = useDispatch();
@@ -17,6 +18,7 @@ function Header() {
     const [isChangeDateModal, setIsChangeDateModal] = useState(false);
 
     const collaborator = useSelector((state) => state.collabarators.item);
+    const {kiosk_name} = useSelector((state) => state.parameters);
     const date = useSelector((state) => state.cart.date);
     const currentDealer = useSelector((state) => state.dealers.item);
 
@@ -27,9 +29,12 @@ function Header() {
         navigate(url, { replace: true }), [navigate];
     });
 
+
     const toggleChangeDateModal = () => {
         setIsChangeDateModal(!isChangeDateModal);
     };
+
+    console.log('currentDealer', currentDealer);
 
     return (
         <>
@@ -43,7 +48,7 @@ function Header() {
                         alignItems: 'center'
                     }} onClick={() => handleOnClick("/terminal")}>
                         {(!currentDealer || currentDealer.id === 0 )&& <img onClick={() => handleOnClick("/terminal")} id="logo" src={logo_100czk} width="300" height="48" alt="Logo" />}
-                        {currentDealer && currentDealer.id === 48 && <img id="logo" src={bc_logo} width="48" height="48" alt="Logo" style={{margin: 'auto'}}/>}
+                        {currentDealer && (currentDealer.id === 48 || currentDealer.label === "BCT") && <img id="logo" src={bc_logo} width="48" height="48" alt="Logo" style={{margin: 'auto'}}/>}
                     </div>}
                 </div>
                 <a href="#" onClick={() => {
@@ -56,6 +61,7 @@ function Header() {
                     <br />
                     <i className="fa fa-clock-o" aria-hidden="true"></i>
                 </div>
+                {kiosk_name && <div className="kiosk_name">{kiosk_name}</div>}
                 {date && collaborator && (
                     <div onClick={() => toggleChangeDateModal()} id="mass_date">
                         <span>Datum objednávky</span>

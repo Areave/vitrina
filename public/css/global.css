@@ -33,11 +33,18 @@ h2 {
 }
 #header {
     height: 10vh;
+    padding-top: 10px;
     background: #f7f7f7; /*DELETE*/
     position: relative;
 }
 #header > * {
     border-right: 1px solid #dcdcdc;
+}
+#header > .kiosk_name {
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 .logo,
 .selected-employee {

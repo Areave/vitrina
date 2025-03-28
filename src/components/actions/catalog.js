@@ -1,6 +1,6 @@
 import axios from "axios";
 import { setCatalog } from "../../reducers/catalogReducer";
-import { setItemServiceFee } from "../../reducers/cartReducer";
+import { setItemServiceFee, setItemServiceFeeArray } from "../../reducers/cartReducer";
 
 export const getCatalog = (currentDealer) => {
 
@@ -22,7 +22,9 @@ export const getCatalog = (currentDealer) => {
 		});
 		if (response?.data?.data) {
 			dispatch(setCatalog(response?.data?.data, currentDealer));
-			dispatch(setItemServiceFee(response?.data?.data.products.filter(item => item.type === 'GOODS_SERVICE_FEE')?.[0]))
+			console.log('response?.data?.data.products.filter(item => item.type === \'GOODS_SERVICE_FEE\')', response?.data?.data.products.filter(item => item.type === 'GOODS_SERVICE_FEE'));
+			dispatch(setItemServiceFee(response?.data?.data.products.filter(item => item.type === 'GOODS_SERVICE_FEE')?.[0]));
+			// dispatch(setItemServiceFeeArray(response?.data?.data.products.filter(item => item.type === 'GOODS_SERVICE_FEE')));
 		}
 	}
 }

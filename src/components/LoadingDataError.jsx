@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCollaborators } from "./actions/collaborators";
 import { getCatalog } from "./actions/catalog";
 import { getCurrentToken } from "../config";
+import { getKioskSettings } from "./actions/dealers";
 
 function LoadingDataError({ toggleCleanCartModal }) {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ function LoadingDataError({ toggleCleanCartModal }) {
       // if (token) {
         dispatch(getCollaborators());
         dispatch(getCatalog());
+        dispatch(getKioskSettings());
     // }
   }, [countGetData]);
 

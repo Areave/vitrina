@@ -9,7 +9,7 @@ import SalonButton from "./SalonButton";
 import vitrina_logo from "../../public/img/vvitrina_logo.svg";
 import logo_100czk from "../../public/img/logo_100czk.svg";
 import LoadingDataError from "./LoadingDataError";
-import { getDealers } from "./actions/dealers";
+import { getDealers, getKioskSettings } from "./actions/dealers";
 import { getCollaborators } from "./actions/collaborators";
 import { getCatalog } from "./actions/catalog";
 import Loader from "./Loader";
@@ -17,6 +17,7 @@ import Loader from "./Loader";
 function Main() {
     const dispatch = useDispatch();
     const dealers = useSelector((state) => state.dealers);
+    const settings = useSelector((state) => state.parameters);
 
     const [isModal, setIsModal] = useState(false);
     const [modalName, setModalName] = useState(null);
@@ -25,9 +26,27 @@ function Main() {
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        if (!dealers.items) {
+        // if(!global.config.sid) {
+        //     getToken().then((data) => {
+        //         console.log("t", data.data.data.key);
+        //         // global.config.sid='383f6145daa9297a2275603d6819887e';
+        //         global.config.sid = data.data.data.key;
+        //     }).catch((error) => {
+        //
+        //     });
+        // }
+    }, []);
+
+    useEffect(() => {
+        if (!dealers.items && global.config.sid) {
             setIsLoading(true);
             dispatch(getDealers());
+        }
+    }, []);
+    useEffect(() => {
+        if (global.config.sid) {
+            setIsLoading(true);
+            dispatch(getKioskSettings());
         }
     }, []);
 
@@ -59,6 +78,10 @@ function Main() {
     };
 
     if (dealers.isError) {
+        return <LoadingDataError/>;
+    }
+
+    if (settings.kiosk_error) {
         return <LoadingDataError/>;
     }
 

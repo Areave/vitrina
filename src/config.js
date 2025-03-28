@@ -26,7 +26,7 @@ let sid = getParams(document.location.href)?.token_key;
 
 const getToken = async () => {
 	const url = `${_default.protocol}://api.dev.100czk.cz/api_v3/get_test_kiosk_token`;
-	// return await axios.get(url);
+	return await axios.get(url);
 };
 
 export const getCurrentToken = () => {
@@ -48,10 +48,18 @@ const _default = global.config = {
 	currency: 'Kč'
 };
 
-// if(!sid) {
-// 	// const t = getToken();
-// 	// console.log("t", t);
-// 	global.config.sid='fbb4f0a45aff34df8642f6bf4f36f7319WJEWG3bEJb5yZaq4Jb3PBqwLBcJHvuWi5Oqp3rMQAPQXCxdNEAYKIQAfUqvorA2eCy1uOdprBgCsXyT5bAXDHT4uLommotsFNMWh85NuBqkJl4LKfnOcCsGhrWRmkTVjrAKraWA0I6wkZkNGtgOqEYGQRlaSQeR4SMpxHgfpyhfBv2QFBArOteu6yOb4RsTrcyFHCNszGC6cBeCfiVLNKnxpXW1I1qF2uARwcViHOr2j2x5XI0gQt7EAmaLbrk9WV6lqQ2QMfNs8wogSyoGa69d5mYqdiqtlu8KWuGA9pkhxWs8iFZydlfx1bkXG2hGJ4rL2C2ObYGuc4yhUizUPQPdOG2AlJoOvITqu2Fb8Sk5SGyhC91Bb4VxAZQQXXpVDvmbxHMpOI5Ma7fPB54NW17TyCGEtMB3VjqB5jCTscgxvp58GisFKKYsIYe7bGHCDn7NwfbrmeQLA6tiiXO3F6f1yFViIXErdS7qyeZHYbdRvDLtG671EQlHDzuTfKy94ZottCBVuADW2fy6KRgW'
+// let start = () => {
+	if(!sid) {
+		getToken().then((data) => {
+			console.log("t", data.data.data.key);
+			// global.config.sid='383f6145daa9297a2275603d6819887e';
+			global.config.sid = data.data.data.key;
+		}).catch((error) => {
+
+		});
+	}
 // }
+
+// start();
 
 export { _default as default };

@@ -7,6 +7,7 @@ const SET_DATE = "SET_DATE";
 const EMPTY_DATE = "EMPTY_DATE";
 const SET_AMOUNT_TIPS = "SET_AMOUNT_TIPS";
 const SET_ITEM_SERVICE_FEE = "SET_ITEM_SERVICE_FEE";
+const SET_ITEM_SERVICE_FEE_ARRAY = "SET_ITEM_SERVICE_FEE_ARRAY";
 
 const defaultState = {
     items: [],
@@ -19,6 +20,7 @@ const defaultState = {
     date: null,
     countServiceFeeCorrect: 0,
     itemServiceFee: null,
+    itemServiceFeeArray: null,
     // {
     //     id: 13613,
     //     type: "GOODS_SERVICE_FEE",
@@ -37,6 +39,7 @@ let items = [];
 const getFeeStat = (items) => {
     const e = items.reduce(
         (acc, item) => {
+            item.add_service_fee && console.log('item', item);
             if (item.type === "GOODS_SERVICE") {
                 acc.isGoodsServiceFee = true;
                 acc.countAddServiceFee += (item.add_service_fee ? 1 : 0);
@@ -77,6 +80,8 @@ function cartReducer(state = defaultState, action) {
                 state.countServiceFeeCorrect++;
             }
             calcCountServiceFee += state.countServiceFeeCorrect;
+
+            console.log('state.itemServiceFee', state.itemServiceFee);
 
             items = [
                 ...((feeStat.isGoodsServiceFee &&
@@ -167,6 +172,12 @@ function cartReducer(state = defaultState, action) {
                 ...state,
                 itemServiceFee: action.payload,
             };
+            case SET_ITEM_SERVICE_FEE_ARRAY:
+            // console.log("SET_ITEM_SERVICE_FEE", action.payload);
+            return {
+                ...state,
+                itemServiceFeeArray: action.payload,
+            };
         default:
             return state;
     }
@@ -189,3 +200,4 @@ export const setDate = (date) => ({ type: SET_DATE, payload: date });
 export const emptyDate = () => ({ type: EMPTY_DATE, payload: null });
 export const setAmountTips = (amountTips) => ({ type: SET_AMOUNT_TIPS, payload: amountTips });
 export const setItemServiceFee = (item) => ({ type: SET_ITEM_SERVICE_FEE, payload: item });
+export const setItemServiceFeeArray = (item) => ({ type: SET_ITEM_SERVICE_FEE_ARRAY, payload: item });
