@@ -40,13 +40,13 @@ function Main() {
     useEffect(() => {
         if (!dealers.items && global.config.sid) {
             setIsLoading(true);
-            dispatch(getDealers());
+            dispatch(getDealers(setIsLoading));
         }
     }, []);
     useEffect(() => {
         if (global.config.sid) {
             setIsLoading(true);
-            dispatch(getKioskSettings());
+            dispatch(getKioskSettings(setIsLoading));
         }
     }, []);
 

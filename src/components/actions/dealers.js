@@ -10,7 +10,7 @@ const getToken = async () => {
     return await axios.get(url);
 };
 
-export const getKioskSettings = () => {
+export const getKioskSettings = (setIsLoading) => {
     let url = `${global.config.protocol}://${global.config.apiHost}${global.config.apiPrefix ? "/" + global.config.apiPrefix : ""}/get_kiosk_settings${global.config.sid ? "?sid=" + global.config.sid : ""}`;
 
     return async (dispatch) => {
@@ -24,11 +24,14 @@ export const getKioskSettings = () => {
                     // "Authorization": `Bearer ${global.config.sid}`
                 }
             });
+            
+            console.log('data', data);
             if (data?.data?.data.kiosk_status !== 'OK') {
                 dispatch(setKioskLoadingError(data?.data?.data.kiosk_error));
             }
             if (data?.data?.data) {
                 dispatch(setKioskSettings(data?.data.data));
+                setIsLoading(false)
             }
         } catch (e) {
             console.log("о ш и б к а");
@@ -39,7 +42,7 @@ export const getKioskSettings = () => {
     };
 };
 
-export const getDealers = () => {
+export const getDealers = (setIsLoading) => {
 
     // if(!global.config.sid) {
     //     const data = getToken();
@@ -77,6 +80,7 @@ export const getDealers = () => {
                    return dealer;
                 });
                 dispatch(setDealers(dealers));
+                setIsLoading(false)
             }
         } catch (e) {
             console.log("о ш и б к а");
