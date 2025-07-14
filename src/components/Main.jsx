@@ -78,10 +78,12 @@ function Main() {
     };
 
     if (dealers.isError) {
+        console.log('dealers', dealers);
         return <LoadingDataError/>;
     }
 
     if (settings.kiosk_error) {
+        console.log('settings', settings);
         return <LoadingDataError errorText={settings.kiosk_error}/>;
     }
 

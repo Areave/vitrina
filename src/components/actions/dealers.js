@@ -24,20 +24,19 @@ export const getKioskSettings = (setIsLoading) => {
                     // "Authorization": `Bearer ${global.config.sid}`
                 }
             });
-            
-            console.log('data', data);
             if (data?.data?.data.kiosk_status !== 'OK' || data?.data?.data.kiosk_error) {
+                // console.log('data?.data?.data', data?.data?.data);
                 dispatch(setKioskLoadingError(data?.data?.data.kiosk_error));
             }
-            if (data?.data?.data) {
+            else if (data?.data?.data) {
                 dispatch(setKioskSettings(data?.data.data));
-                setIsLoading(false)
+                setIsLoading && setIsLoading(false)
             }
         } catch (e) {
             console.log("о ш и б к а");
             console.log(e);
             dispatch(setKioskLoadingError('Settings loading error'));
-            setIsLoading(false);
+            setIsLoading && setIsLoading(false);
         }
 
     };
