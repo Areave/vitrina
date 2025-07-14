@@ -82,7 +82,7 @@ function Main() {
     }
 
     if (settings.kiosk_error) {
-        return <LoadingDataError/>;
+        return <LoadingDataError errorText={settings.kiosk_error}/>;
     }
 
     if (isLoading) {

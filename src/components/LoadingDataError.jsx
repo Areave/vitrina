@@ -5,7 +5,7 @@ import { getCatalog } from "./actions/catalog";
 import { getCurrentToken } from "../config";
 import { getKioskSettings } from "./actions/dealers";
 
-function LoadingDataError({ toggleCleanCartModal }) {
+function LoadingDataError({ toggleCleanCartModal, errorText }) {
   const dispatch = useDispatch();
   const [countGetData, setCountGetData] = useState(0);
 
@@ -32,7 +32,7 @@ function LoadingDataError({ toggleCleanCartModal }) {
           id="loader"
         ></i>
         <div id="loader_msg">
-          Chyba při získávání dat ze serveru
+          {errorText ? errorText : 'Chyba při získávání dat ze serveru'}
           <br />
           <a herf="#" onClick={() => retryGetData()}>
             Aktualizace

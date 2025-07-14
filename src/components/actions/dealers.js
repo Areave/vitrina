@@ -26,7 +26,7 @@ export const getKioskSettings = (setIsLoading) => {
             });
             
             console.log('data', data);
-            if (data?.data?.data.kiosk_status !== 'OK') {
+            if (data?.data?.data.kiosk_status !== 'OK' || data?.data?.data.kiosk_error) {
                 dispatch(setKioskLoadingError(data?.data?.data.kiosk_error));
             }
             if (data?.data?.data) {
@@ -36,7 +36,8 @@ export const getKioskSettings = (setIsLoading) => {
         } catch (e) {
             console.log("о ш и б к а");
             console.log(e);
-            dispatch(setKioskLoadingError(true));
+            dispatch(setKioskLoadingError('Settings loading error'));
+            setIsLoading(false);
         }
 
     };
