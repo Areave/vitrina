@@ -65,7 +65,7 @@ export const sendPaymentToGate = (payload, currentDealer) => {
                     url_ok: `${window.location.origin}` + (params && `/?${params}`),
                     // url_fail: `${window.location.origin}/error-payment` + (params && `/?${params}`),
                     url_fail: null,
-                    currency: payload.currency_id,
+                    currency: payload.currency_memo,
                     dealer_id: payload.dealer_id,
                     amount: payload.amount,
                     commission: payload.amountTips || 0,
