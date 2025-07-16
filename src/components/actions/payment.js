@@ -35,7 +35,6 @@ export const sendPaymentToGate = (payload, currentDealer) => {
 
     let url = `${protocol}://${apiHost}/${apiPrefix}/open_kiosk_transaction${global.config.sid ? "?sid=" + global.config.sid : ""}`;
     let data = {};
-    const cuurency_id =  useSelector((state) => state.parameters.currency_id);
 
     // if (currentDealer) {
     //     data = {id: currentDealer.id}
@@ -66,7 +65,7 @@ export const sendPaymentToGate = (payload, currentDealer) => {
                     url_ok: `${window.location.origin}` + (params && `/?${params}`),
                     // url_fail: `${window.location.origin}/error-payment` + (params && `/?${params}`),
                     url_fail: null,
-                    currency: cuurency_id,
+                    currency: payload.currency_id,
                     dealer_id: payload.dealer_id,
                     amount: payload.amount,
                     commission: payload.amountTips || 0,

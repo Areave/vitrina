@@ -44,7 +44,8 @@ const Cart = () => {
     const amount = useSelector((state) => state.cart.amount);
     const amountTips = useSelector((state) => state.cart.amountTips);
     const date = useSelector((state) => state.cart.date);
-    let catalog = useSelector((state) => state.catalog.items);
+    let catalog = useSelector((state) => state.catalog.items);    
+    const currency_id =  useSelector((state) => state.parameters.currency_id);
 
     cart.forEach((item) => {
         matchCount[item.id] = matchCount[item.id] + 1 || 1;
@@ -69,6 +70,7 @@ const Cart = () => {
                 amountTips,
                 date,
                 currency_memo,
+                currency_id,
                 dealer_id: currentDealer.id,
                 customerId: collaborator.id,
                 customerName: collaborator.name,
