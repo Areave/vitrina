@@ -7,6 +7,7 @@ const Product = ({ item, index }) => {
 
     const cart = useSelector((state) => state.cart.items.filter((cartItem) => cartItem.id === item.id));
     const currentDealer = useSelector((state) => state.dealers.item);
+    const {currency_memo} = useSelector((state) => state.parameters);
 
     const add = (item) => {
         dispatch(addProduct(item));
@@ -31,14 +32,14 @@ const Product = ({ item, index }) => {
                             <span>-1</span>
                         </a>
                         <span>
-                            {item.price} CZK<b>{cart.length} ks</b>
+                            {item.price + ' ' + currency_memo}<b>{cart.length} ks</b>
                         </span>
                         <a className="product-link" onClick={() => add(item)}>
                             <span className="product-add">+1</span>
                         </a>
                     </>
                 ) : (
-                    <span>{item.price} CZK</span>
+                    <span>{item.price + ' ' + currency_memo}</span>
                 )}
             </div>
         </li>
