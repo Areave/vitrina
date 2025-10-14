@@ -28,8 +28,13 @@
 .salon_button > .img_container {
 
 }
-.salon_button > .img_container.main {
+.salon_button > .img_container.main.square {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
 }
+
 .salon_button > .img_container.co-working {
     display: flex;
     justify-content: center;
@@ -57,7 +62,7 @@
     margin-top: 15px;
 }
 .salon_button > .label.main {
-
+    font-size: 3vh;
 }
 .salon_button > .label.co-working {
     font-size: 3vh;
