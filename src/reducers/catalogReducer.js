@@ -23,11 +23,12 @@ function catalogReducer(state = defaultState, action) {
 			}
 		case SET_CATALOG:
 			let key;
-			if (action.payload.currentDealer) {
-				key = action.payload.currentDealer.name;
-			} else {
-				key = 'main';
-			}
+			// if (action.payload.currentDealer) {
+			// 	key = action.payload.currentDealer.name;
+			// } else {
+			// 	key = 'main';
+			// }
+			key = action.payload.currentDealer.id;
 			return {
 				...state,
 				items: {...state.items, [key]: action.payload.catalog},

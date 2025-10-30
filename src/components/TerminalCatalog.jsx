@@ -10,7 +10,7 @@ function TerminalCatalog() {
     const dispatch = useDispatch();
 
     const currentDealer = useSelector((state) => state.dealers.item);
-    let catalog = useSelector((state) => state.catalog.items[currentDealer.name]);
+    let catalog = useSelector((state) => state.catalog.items[currentDealer.id]);
     const breadcrumb = useSelector((state) => state.catalog.breadcrumb);
 
     // breadcrumb.forEach((item) => {
