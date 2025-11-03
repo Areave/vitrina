@@ -21,10 +21,10 @@ function Terminal() {
     const collaboratorsError = useSelector((state) => state.collabarators.isError);
 
     useEffect(()=>{
-        if (!collaborators) {
+        // if (!collaborators) {
             setIsFetching(true);
             dispatch(getCollaborators(currentDealer));
-        }
+        // }
     }, []);
 
 
