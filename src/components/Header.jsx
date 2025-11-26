@@ -34,7 +34,7 @@ function Header() {
         setIsChangeDateModal(!isChangeDateModal);
     };
 
-    console.log('currentDealer', currentDealer);
+    // console.log('currentDealer', currentDealer);
 
     return (
         <>
@@ -47,7 +47,7 @@ function Header() {
                         justifyContent:'space-between',
                         alignItems: 'center'
                     }} onClick={() => handleOnClick("/terminal")}>
-                        {(!currentDealer || currentDealer.id === 0 )&& <img onClick={() => handleOnClick("/terminal")} id="logo" src={logo_100czk} width="300" height="48" alt="Logo" />}
+                        {(!currentDealer || currentDealer.id === 0 )&& <img onClick={() => handleOnClick("/terminal")} id="logo" src={`${currentDealer.dealer_image_id ? global.config.protocol + '://' + global.config.apiHost + '/image?sid=0&object_id=' + dealer_image_id : logo_100czk}`} width="300" height="48" alt="Logo" />}
                         {currentDealer && (currentDealer.id === 48 || currentDealer.label === "BCT") && <img id="logo" src={bc_logo} width="48" height="48" alt="Logo" style={{margin: 'auto'}}/>}
                     </div>}
                 </div>
