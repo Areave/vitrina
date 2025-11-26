@@ -16,6 +16,7 @@
     background: #f7f7f7;
     /*line-height: 24vh;*/
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+    padding: 5px;
 
 }
 .salon_button.main {
@@ -36,18 +37,33 @@
 }
 
 .salon_button > .img_container.co-working {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50%;
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    /*height: 50%;*/
 
     /*height: 60%;*/
     /*width: max-content;*/
 }
-.salon_button > .img_container > img{
-    display: block;
+
+.salon_button > .img_container {
+    flex: 1;                /* занимает всё оставшееся пространство над подписью */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;       /* картинка не выйдет за рамки */
+    /*display: block;*/
     width: 100%;
     height: 100%;
+    padding: 10px;
+}
+
+.salon_button > .img_container > img{
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;    /* картинка любого размера полностью влезает */
+    display: block;
+
 }
 .salon_button > .img_container.main > img{
 
@@ -59,7 +75,11 @@
 
 
 .salon_button > .label{
-    margin-top: 15px;
+    margin-top: 5px;
+    height: 30px;           /* фиксированное место под текст. Измени под себя */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .salon_button > .label.main {
     font-size: 3vh;

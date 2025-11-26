@@ -13,7 +13,7 @@ const SalonButton = ({dealer}) => {
     const dispatch = useDispatch();
     const settings = useSelector((state) => state.parameters);
 
-    let {id, name, label} = dealer;
+    let {id, name, label, dealer_image_id} = dealer;
 
     let isBCA = settings.kiosk_name === '267 BCT Akademie - Praha - Karlovo namesti - Atrium';
 
@@ -35,7 +35,8 @@ const SalonButton = ({dealer}) => {
 
     return <div className={'salon_button ' + name} onClick={onButtonClick}>
         <div className={"img_container " + name + `${isBCA ? ' square' : ''}`}>
-            <img src={logos[name]} alt="terminals"/>
+            {/*<img src={`${ dealer_image_id ? 'https://api.100czk.cz/image?' + global.config.protocol + '://' + global.config.apiHost + + dealer_image_id : logos[name]}`} alt="terminals"/>*/}
+            <img src={`${ dealer_image_id ? global.config.protocol + '://' + global.config.apiHost + '/image?sid=0&object_id=' + dealer_image_id : logos[name]}`} alt="terminals"/>
         </div>
         <div className={"label " + name}>
             {label || 'Terminal'}
