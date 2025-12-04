@@ -14,6 +14,7 @@ const defaultState = {
     kiosk_error: "",
     kiosk_name: "Test teminal",
     kiosk_status: "OK",
+    language_memo: 'cz'
 };
 
 function parametersReducer(state = defaultState, action) {

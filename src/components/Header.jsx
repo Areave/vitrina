@@ -5,15 +5,17 @@ import { emptyCart } from "./../reducers/cartReducer";
 import { sliceBreadcrumb } from "./../reducers/catalogReducer";
 import { resetCollaborator } from "./../reducers/collaboratorsRedusers";
 import ChangeDate from "./modal/ChangeDate";
-
+import {useTranslation} from "react-i18next";
 import logo_100czk from "../../public/img/logo_100czk.svg";
 import bc_logo from "../../public/img/bc-logo.png";
 import { resetDealer } from "../reducers/dealersRedusers";
-import parametersReducer from "../reducers/parametersReducer";
+import parametersReducer, { setKioskSettings } from "../reducers/parametersReducer";
 
 function Header() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const {t} = useTranslation();
+    const settings = useSelector((state) => state.parameters);
 
     const [isChangeDateModal, setIsChangeDateModal] = useState(false);
 
@@ -33,6 +35,12 @@ function Header() {
     const toggleChangeDateModal = () => {
         setIsChangeDateModal(!isChangeDateModal);
     };
+
+    // const toggleLang = () => {
+    //     const curLang = settings.language_memo;
+    //     const newLang = `${curLang === 'cz' ? 'en' : 'cz'}`;
+    //     dispatch(setKioskSettings({...settings, language_memo: newLang}));
+    // };
 
     // console.log('currentDealer', currentDealer);
 
@@ -61,10 +69,13 @@ function Header() {
                     <br />
                     <i className="fa fa-clock-o" aria-hidden="true"></i>
                 </div>
+                {/*<div className=""  onClick={toggleLang}>{settings.language_memo}</div>*/}
+                {/*<div className="" onClick={toggleLang}>{t('change_date')}</div>*/}
                 {kiosk_name && <div className="kiosk_name">{kiosk_name}</div>}
                 {date && collaborator && (
                     <div onClick={() => toggleChangeDateModal()} id="mass_date">
-                        <span>Datum objednávky</span>
+                        {/*<span>Datum objednávky</span>*/}
+                        <span>{t('change_date')}</span>
                         <br />
                         <i className="fa fa-calendar" aria-hidden="true"></i> {date}
                     </div>
@@ -72,7 +83,7 @@ function Header() {
                 {!date && collaborator && (
                     <div id="change_date">
                         <a onClick={() => toggleChangeDateModal()} className="botton-change-date" href="#">
-                            Změnit datum
+                            {t('change_date')}
                         </a>
                     </div>
                 )}
@@ -80,7 +91,7 @@ function Header() {
                     <div className="selected-employee">
                         <p id="employee-name">{`${collaborator.name}`}</p>
                         <a href="#" onClick={() => handleOnClick("/terminal")}>
-                            Změnit
+                            {t('change')}
                         </a>
                     </div>
                 )}

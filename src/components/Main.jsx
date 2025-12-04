@@ -13,6 +13,10 @@ import { getDealers, getKioskSettings } from "./actions/dealers";
 import { getCollaborators } from "./actions/collaborators";
 import { getCatalog } from "./actions/catalog";
 import Loader from "./Loader";
+import translationEN from "../utils/en.json";
+import translationCZ from "../utils/cz.json";
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
 
 function Main() {
     const dispatch = useDispatch();
@@ -51,6 +55,30 @@ function Main() {
     }, []);
 
     useEffect(() => {
+
+        // console.log('settings.language_memo', settings.language_memo);
+        i18n.use(initReactI18next).init({
+            resources : {
+                en: {
+                    translation: translationEN,
+                },
+                cz: {
+                    translation: translationCZ,
+                }
+            },
+            // lng: settings.language_memo || 'cz',
+            lng: 'cz',
+            // fallbackLng: settings.language_memo || 'cz',
+            fallbackLng: 'cz',
+            interpolation: {
+                escapeValue: false,
+            },
+        });
+
+
+    }, [settings.language_memo]);
+
+    useEffect(() => {
         if (dealers.items && isLoading) {
             setIsLoading(false);
         }
@@ -78,12 +106,12 @@ function Main() {
     };
 
     if (dealers.isError) {
-        console.log('dealers', dealers);
+        // console.log('dealers', dealers);
         return <LoadingDataError/>;
     }
 
     if (settings.kiosk_error) {
-        console.log('settings', settings);
+        // console.log('settings', settings);
         return <LoadingDataError errorText={settings.kiosk_error}/>;
     }
 

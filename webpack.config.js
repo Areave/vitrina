@@ -50,6 +50,7 @@ config = {
         new CleanWebpackPlugin()
     ],
 	devServer: {
+        port: 4000,
 		historyApiFallback: true
 	  },
 	optimization: {

@@ -13,7 +13,7 @@ function Modal({ toggleIsModal, modalParams, modalName, modalPayload }) {
             <div id="loader_div" className="open closeable">
                 {isButtonClose && (
                     <div id="loader_close" onClick={() => toggleIsModal()}>
-                        Zavřít <i className="fa fa-hand-pointer-o" aria-hidden="true"></i> <i className="fa fa-window-close-o" aria-hidden="true"></i>
+                        {t('close')} <i className="fa fa-hand-pointer-o" aria-hidden="true"></i> <i className="fa fa-window-close-o" aria-hidden="true"></i>
                     </div>
                 )}
                 {modalName === "collectionsModal" && <CollectionsModal setButtonClose={setButtonClose} payload={modalPayload} />}

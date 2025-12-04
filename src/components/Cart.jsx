@@ -131,7 +131,7 @@ const Cart = () => {
             <div id="cart" className={currentDealer ? currentDealer.name : ''}>
                 <div className="cart-header">
                     <h2>
-                        Košík
+                        {t('cart')}
                         {cart?.length ? (
                             <a
                                 id="cart_trash"
@@ -183,7 +183,7 @@ const Cart = () => {
                 </div>
                 <div className={'cart-bottom ' + `${currentDealer ? currentDealer.name : ''}`}>
                     <div className="cart-summary">
-                        <strong>Celkem:</strong>{" "}
+                        <strong>{t('total')}:</strong>{" "}
                         <span className="cart-total">
                             {amount} {currency_symbol || global.config.currency}
                         </span>
@@ -197,7 +197,7 @@ const Cart = () => {
                                     openModal({ name: "paymentMethodModal", step: "TIPS" })
                                 }
                             >
-                                Zaplatit
+                                {t('pay')}
                             </a>
                         </div>
                     ) : (

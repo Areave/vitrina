@@ -73,14 +73,14 @@ function PaymentModal({ sendPayment }) {
                     <div id="payment_methods_header">
                         <span onClick={() => closeModal()}>
                             <font style={{ verticalAlign: "inherit" }}>
-                                <font style={{ verticalAlign: "inherit" }}> Zavřít</font>
+                                <font style={{ verticalAlign: "inherit" }}> {t('close')}</font>
                             </font>
                             <i className="fa fa-hand-pointer-o" aria-hidden="true"></i> <i className="fa fa-window-close-o" aria-hidden="true"></i>
                         </span>
                     </div>
                     <div id="tip_body">
                         <div id="tip_calculator">
-                            <span className="tip_calculator_header">Spropitné pro kadeřníka</span>
+                            <span className="tip_calculator_header">{t('tips')}</span>
                             <input id="tip_input" value={tips} />
                             <span id="tip_inp_currency">Kč</span>
                             <div>
@@ -143,7 +143,7 @@ function PaymentModal({ sendPayment }) {
                     <div id="payment_methods_header">
                         <span id="price_preview">
                             <font style={{ verticalAlign: "inherit" }}>
-                                <font style={{ verticalAlign: "inherit" }}>Celkem: </font>
+                                <font style={{ verticalAlign: "inherit" }}>{t('total')}: </font>
                             </font>
                             <span className="price">
                                 <font style={{ verticalAlign: "inherit" }}>
@@ -155,7 +155,7 @@ function PaymentModal({ sendPayment }) {
                         </span>
                         <span onClick={() => closeModal()}>
                             <font style={{ verticalAlign: "inherit" }}>
-                                <font style={{ verticalAlign: "inherit" }}> Zavřít</font>
+                                <font style={{ verticalAlign: "inherit" }}> {t('close')}</font>
                             </font>
                             <i className="fa fa-hand-pointer-o" aria-hidden="true"></i> <i className="fa fa-window-close-o" aria-hidden="true"></i>
                         </span>
@@ -165,7 +165,7 @@ function PaymentModal({ sendPayment }) {
                             <button onClick={() => clickPaymentMethod("CARD")} className="cardPay">
                                 <span className="show_price">
                                     <font style={{ verticalAlign: "inherit" }}>
-                                        <font style={{ verticalAlign: "inherit" }}>Zaplatíte: </font>
+                                        <font style={{ verticalAlign: "inherit" }}>{t('pay_2')}: </font>
                                     </font>
                                     <span className="price">
                                         <font style={{ verticalAlign: "inherit" }}>
@@ -190,7 +190,7 @@ function PaymentModal({ sendPayment }) {
                                     <i className="fa fa-credit-card-alt big-text" aria-hidden="true"></i>
                                     <span>
                                         <font style={{ verticalAlign: "inherit" }}>
-                                            <font style={{ verticalAlign: "inherit" }}>Kartou</font>
+                                            <font style={{ verticalAlign: "inherit" }}>{t('card')}</font>
                                         </font>
                                     </span>
                                 </span>
@@ -200,7 +200,7 @@ function PaymentModal({ sendPayment }) {
                             <button onClick={() => clickPaymentMethod("CASH")}>
                                 <span className="show_price">
                                     <font style={{ verticalAlign: "inherit" }}>
-                                        <font style={{ verticalAlign: "inherit" }}>Zaplatíte: </font>
+                                        <font style={{ verticalAlign: "inherit" }}>{t('pay_2')}: </font>
                                     </font>
                                     <span className="price">
                                         <font style={{ verticalAlign: "inherit" }}>
@@ -213,7 +213,7 @@ function PaymentModal({ sendPayment }) {
                                 <i className="fa fa-money" aria-hidden="true"></i>
                                 <span>
                                     <font style={{ verticalAlign: "inherit" }}>
-                                        <font style={{ verticalAlign: "inherit" }}>Hotově</font>
+                                        <font style={{ verticalAlign: "inherit" }}>{t('cash')}</font>
                                     </font>
                                 </span>
                             </button>
@@ -229,7 +229,7 @@ function PaymentModal({ sendPayment }) {
                     <div id="payment_methods_header">
                         <span id="price_preview">
                             <font style={{ verticalAlign: "inherit" }}>
-                                <font style={{ verticalAlign: "inherit" }}>Celkem: </font>
+                                <font style={{ verticalAlign: "inherit" }}>{t('total')}: </font>
                             </font>
                             <span className="price">
                                 <font style={{ verticalAlign: "inherit" }}>
@@ -241,25 +241,25 @@ function PaymentModal({ sendPayment }) {
                         </span>
                         <span onClick={() => closeModal()}>
                             <font style={{ verticalAlign: "inherit" }}>
-                                <font style={{ verticalAlign: "inherit" }}> Zavřít</font>
+                                <font style={{ verticalAlign: "inherit" }}> {t('close')}</font>
                             </font>
                             <i className="fa fa-hand-pointer-o" aria-hidden="true"></i> <i className="fa fa-window-close-o" aria-hidden="true"></i>
                         </span>
                     </div>
                     <div id="loader_msg">
-                        <h2>Tisknout účtenku</h2>
+                        <h2>{t('print_the_receipt')}</h2>
                         <div>
                             <a
                                 onClick={() => clickPrintBill(false)}
                                 href="#"
                             >
-                                Ne
+                                {t('no')}
                             </a>&nbsp;
                             <a
                                 onClick={() => clickPrintBill(true)}
                                 href="#"
                             >
-                                Ano
+                                {t('yes')}
                             </a>
                         </div>
                     </div>
@@ -281,7 +281,7 @@ function PaymentModal({ sendPayment }) {
                                 {errorPaymentGateResponse?.status + ": " || ""} {errorPaymentGateResponse?.message || "Chyba brány"}
                                 <br />
                                 <a onClick={() => closeModal()} href="#">
-                                    Zavřít
+                                    {t('close')}
                                     {/* Znovu odeslat */}
                                 </a>
                             </div>
@@ -315,7 +315,7 @@ function PaymentModal({ sendPayment }) {
                                             onClick={clickCancelPayment}
                                             href="#"
                                         >
-                                            Zruseni platby
+                                            {t('cancel_the_payment')}
                                         </a>
                                     </div>
                                 </>

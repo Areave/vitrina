@@ -17,6 +17,12 @@ import { resetCollaborator } from "../reducers/collaboratorsRedusers";
 import ErrorPayment from "./ErrorPayment";
 import axios from 'axios'
 
+import translationEN from "../utils/en.json";
+import translationCZ from "../utils/cz.json";
+import {useTranslation,initReactI18next} from "react-i18next";
+import i18n from "i18next";
+
+
 function App() {
     // const dispatch = useDispatch();
     // const collaborators = useSelector((state) => state.collabarators);
