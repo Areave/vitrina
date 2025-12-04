@@ -6,9 +6,11 @@ import { resetModal, setModal } from "../../reducers/storageReducer";
 import { setAmountTips, setPaymentGateProccess } from "../../reducers/cartReducer";
 import terminal_cancel from "../../../public/img/terminal_cancel.png";
 import { cancelPayment } from "./../actions/cancelPayment";
+import { useTranslation } from "react-i18next";
 
 function PaymentModal({ sendPayment }) {
     const dispatch = useDispatch();
+    const {t} = useTranslation();
 
     const closeModal = () => {
         dispatch(setPaymentGateProccess(false));

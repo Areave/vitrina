@@ -11,9 +11,11 @@ import PaymentModal from "./modal/PaymentModal";
 import { sendPaymentToGate } from "./actions/payment";
 import { resetModal, setModal } from "../reducers/storageReducer";
 import BarcodeReader from "react-barcode-reader";
+import { useTranslation } from "react-i18next";
 
 const Cart = () => {
     const dispatch = useDispatch();
+    const {t} = useTranslation();
 
     const modal = useSelector((state) => state.storage.modal);
     const currentDealer = useSelector((state) => state.dealers.item);

@@ -1,8 +1,10 @@
 import React from "react";
 import {useNavigate} from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 
 function ErrorPayment() {
     const navigate = useNavigate();
+    const {t} = useTranslation();
     return (
         <>
             <div id="loader_div" className="open">

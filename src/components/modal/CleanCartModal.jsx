@@ -2,9 +2,11 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { emptyCart } from "../../reducers/cartReducer";
 import { resetModal } from "../../reducers/storageReducer";
+import { useTranslation } from "react-i18next";
 
 function CleanCardModal() {
     const dispatch = useDispatch();
+    const {t} = useTranslation();
 
     const closeModal = () => {
         dispatch(resetModal());

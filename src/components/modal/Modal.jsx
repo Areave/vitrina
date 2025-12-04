@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import CollectionsModal from "./CollectionsModal";
 import ReceiptModal from "./ReceiptModal";
+import { useTranslation } from "react-i18next";
 
 function Modal({ toggleIsModal, modalParams, modalName, modalPayload }) {
     const dispatch = useDispatch();
+    const {t} = useTranslation();
     const [isButtonClose, setButtonClose] = useState(modalParams?.buttonClose)
     const [isLoader, setIsLoader] = useState(true);
 

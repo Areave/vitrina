@@ -1,6 +1,8 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 function Loader() {
+  const {t} = useTranslation();
   return (
     <>
       <div id="loader_div" className="open">
