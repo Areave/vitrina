@@ -29,7 +29,7 @@ export const getKioskSettings = (setIsLoading) => {
                 dispatch(setKioskLoadingError(data?.data?.data.kiosk_error));
             }
             else if (data?.data?.data) {
-                dispatch(setKioskSettings({...data?.data.data, language_memo: data?.data.data.language_memo.toLowerCase()}));
+                dispatch(setKioskSettings({...data?.data.data, language_memo: data?.data.data.language_memo?.toLowerCase() || 'cz'}));
                 setIsLoading && setIsLoading(false)
             }
         } catch (e) {
