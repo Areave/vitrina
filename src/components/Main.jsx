@@ -66,10 +66,10 @@ function Main() {
                     translation: translationCZ,
                 }
             },
-            // lng: settings.language_memo || 'cz',
-            lng: 'cz',
-            // fallbackLng: settings.language_memo || 'cz',
-            fallbackLng: 'cz',
+            lng: settings.language_memo || 'cz',
+            // lng: 'cz',
+            fallbackLng: settings.language_memo || 'cz',
+            // fallbackLng: 'cz',
             interpolation: {
                 escapeValue: false,
             },
