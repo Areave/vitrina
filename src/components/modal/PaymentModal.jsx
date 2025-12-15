@@ -84,7 +84,7 @@ function PaymentModal({ sendPayment }) {
                         <div id="tip_calculator">
                             <span className="tip_calculator_header">{t('tips')}</span>
                             <input id="tip_input" value={tips} />
-                            <span id="tip_inp_currency">Kč</span>
+                            <span id="tip_inp_currency">{t('tips')}</span>
                             <div>
                                 {/* {
                                 Array(10)
@@ -127,7 +127,7 @@ function PaymentModal({ sendPayment }) {
                             </div>
                             <div id="tip_footer">
                                 <span className="tip_btn" onClick={() => cancelTips()}>
-                                    Nemám zájem nechat spropitné pro kadeřníka (přeskočit)
+                                    {t('nemam')}
                                 </span>
                                 <span className="tip_btn small submit" onClick={() => applyTips()}>
                                     <i className="fa fa-check"></i>

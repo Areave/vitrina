@@ -12,5 +12,7 @@
   "cancel_the_payment": "Cancel the payment",
   "print_the_receipt": "Print the receipt",
   "no": "No",
-  "yes": "Yes"
+  "yes": "Yes",
+  "currency": "Euro",
+  "nemam": "No"
 }

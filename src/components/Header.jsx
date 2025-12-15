@@ -7,6 +7,7 @@ import { resetCollaborator } from "./../reducers/collaboratorsRedusers";
 import ChangeDate from "./modal/ChangeDate";
 import {useTranslation} from "react-i18next";
 import logo_100czk from "../../public/img/logo_100czk.svg";
+import logo_100esp from "../../public/img/logo_100esp.svg";
 import bc_logo from "../../public/img/bc-logo.png";
 import { resetDealer } from "../reducers/dealersRedusers";
 import parametersReducer, { setKioskSettings } from "../reducers/parametersReducer";
@@ -55,7 +56,7 @@ function Header() {
                         justifyContent:'space-between',
                         alignItems: 'center'
                     }} onClick={() => handleOnClick("/terminal")}>
-                        {(!currentDealer || currentDealer.id === 0 )&& <img onClick={() => handleOnClick("/terminal")} id="logo" src={`${currentDealer.dealer_image_id ? global.config.protocol + '://' + global.config.apiHost + '/image?sid=0&object_id=' + dealer_image_id : logo_100czk}`} width="300" height="48" alt="Logo" />}
+                        {(!currentDealer || currentDealer.id === 0 )&& <img onClick={() => handleOnClick("/terminal")} id="logo" src={`${currentDealer.dealer_image_id ? global.config.protocol + '://' + global.config.apiHost + '/image?sid=0&object_id=' + dealer_image_id : settings.language_memo === 'cz' ? logo_100czk : logo_100esp}`} width="300" height="48" alt="Logo" />}
                         {currentDealer && (currentDealer.id === 48 || currentDealer.label === "BCT") && <img id="logo" src={bc_logo} width="48" height="48" alt="Logo" style={{margin: 'auto'}}/>}
                     </div>}
                 </div>

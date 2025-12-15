@@ -12,5 +12,7 @@
   "cancel_the_payment": "Zruseni platby",
   "print_the_receipt": "Tisknout účtenku",
   "no": "Ne",
-  "yes": "Ano"
+  "yes": "Ano",
+  "currency": "Kč",
+  "nemam": "Nemám zájem nechat spropitné pro kadeřníka (přeskočit)"
 }
