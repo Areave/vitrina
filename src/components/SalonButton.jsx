@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import logo_100czk from "../../public/img/logo_100czk.svg";
-import logo_100esp from "../../public/img/logo_100уыз.svg";
+import logo_100esp from "../../public/img/logo_100esp.jpg";
 import bc_logo from "../../public/img/bc-logo.png";
 import bca_logo from "../../public/img/bca-logo.svg";
 import { resetDealer, setDealer } from "../reducers/dealersRedusers";

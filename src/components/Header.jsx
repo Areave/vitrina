@@ -7,7 +7,7 @@ import { resetCollaborator } from "./../reducers/collaboratorsRedusers";
 import ChangeDate from "./modal/ChangeDate";
 import {useTranslation} from "react-i18next";
 import logo_100czk from "../../public/img/logo_100czk.svg";
-import logo_100esp from "../../public/img/logo_100esp.svg";
+import logo_100esp from "../../public/img/logo_100esp.jpg";
 import bc_logo from "../../public/img/bc-logo.png";
 import { resetDealer } from "../reducers/dealersRedusers";
 import parametersReducer, { setKioskSettings } from "../reducers/parametersReducer";
