@@ -20,6 +20,7 @@ function PaymentModal({ sendPayment }) {
     const modal = useSelector((state) => state.storage.modal);
     const amount = useSelector((state) => state.cart.amount);
     const amountTips = useSelector((state) => state.cart.amountTips);
+    const currency_symbol = useSelector((state) => state.parameters.currency_symbol);
     const isPaymentGateProccess = useSelector((state) => state.cart.isPaymentGateProccess);
     const isErrorFetching = useSelector((state) => state.cart.isErrorFetching);
     const errorPaymentGateResponse = useSelector((state) => state.cart.errorPaymentGateResponse);
@@ -150,7 +151,7 @@ function PaymentModal({ sendPayment }) {
                             <span className="price">
                                 <font style={{ verticalAlign: "inherit" }}>
                                     <font style={{ verticalAlign: "inherit" }}>
-                                        {amount + (amountTips || 0)} {global.config.currency}
+                                        {amount + (amountTips || 0)} {currency_symbol || global.config.currency}
                                     </font>
                                 </font>
                             </span>
@@ -172,7 +173,7 @@ function PaymentModal({ sendPayment }) {
                                     <span className="price">
                                         <font style={{ verticalAlign: "inherit" }}>
                                             <font style={{ verticalAlign: "inherit" }}>
-                                                {amount + (amountTips || 0)} {global.config.currency}
+                                                {amount + (amountTips || 0)} {currency_symbol || global.config.currency}
                                             </font>
                                         </font>
                                     </span>
@@ -207,7 +208,7 @@ function PaymentModal({ sendPayment }) {
                                     <span className="price">
                                         <font style={{ verticalAlign: "inherit" }}>
                                             <font style={{ verticalAlign: "inherit" }}>
-                                                {amount + (amountTips || 0)} {global.config.currency}
+                                                {amount + (amountTips || 0)} {currency_symbol || global.config.currency}
                                             </font>
                                         </font>
                                     </span>
@@ -236,7 +237,7 @@ function PaymentModal({ sendPayment }) {
                             <span className="price">
                                 <font style={{ verticalAlign: "inherit" }}>
                                     <font style={{ verticalAlign: "inherit" }}>
-                                        {amount + (amountTips || 0)} {global.config.currency}
+                                        {amount + (amountTips || 0)} {currency_symbol || global.config.currency}
                                     </font>
                                 </font>
                             </span>
