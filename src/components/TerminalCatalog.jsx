@@ -5,6 +5,8 @@ import Product from "./Product";
 import Search from "./Search";
 import { getCatalog } from "./actions/catalog";
 import Loader from "./Loader";
+import { addProduct } from "../reducers/cartReducer";
+import { useRef } from "react";
 
 function TerminalCatalog() {
     const dispatch = useDispatch();
@@ -31,30 +33,57 @@ Scroll
     const [offsetTop, setOffsetTop] = useState(0);
     const [sliderHeight, setSliderHeight] = useState(0);
 
-    useEffect(() => {
-        let UPC = "";
-        document.addEventListener("keydown", function(e) {
-            const textInput = e.key || String.fromCharCode(e.keyCode);
-            const targetName = e.target.localName;
-            let newUPC = "";
-            if (textInput && textInput.length === 1 && targetName !== "input") {
-                newUPC = UPC + textInput;
+    const catalogRef = useRef(null);
 
-                if (newUPC.length >= 6) {
-                    // console.log("barcode scanned:  ", newUPC);
+    useEffect(() => {
+    catalogRef.current = localCatalog;
+}, [localCatalog]);
+
+useEffect(() => {
+let barcodeBuffer = "";
+let lastKeyTime = 0;
+const handleKeyDown = (e) => {
+    const now = Date.now();
+    const diff = now - lastKeyTime;
+    lastKeyTime = now;
+    // если пауза между символами больше 100ms — новый штрихкод
+    if (diff > 100) {
+        barcodeBuffer = "";
+    }
+    // игнорируем ввод в input
+    if (e.target.localName === "input") return;
+    // конец сканирования
+    if (e.key === "Enter") {
+        if (barcodeBuffer.length >= 6) {
+            console.log("SCANNED:", barcodeBuffer);
+            const product = catalogRef.current?.products?.find(
+                p => p.barcode && p.barcode === barcodeBuffer
+            );
+            if (product) {
+                dispatch(addProduct(product));
+            } else {
+                    console.log("PRODUCT NOT FOUND");
                 }
-            }
-        });
-    }, []);
+        }
+        barcodeBuffer = "";
+        return;
+    }
+    if (e.key.length === 1) {
+        barcodeBuffer += e.key;
+    }
+};
+document.addEventListener("keydown", handleKeyDown);
+return () => document.removeEventListener("keydown", handleKeyDown);
+}, []);
 
-    useEffect(() => {
-        const el = document.getElementById("left-content");
-        const handleScroll = (e) => {
-            setOffsetTop(el.scrollTop);
-        };
-        el?.addEventListener("scroll", handleScroll);
-        return () => el?.removeEventListener("scroll", handleScroll);
-    });
+  useEffect(() => {
+    const el = document.getElementById("left-content");
+    const handleScroll = (e) => {
+      setOffsetTop(el.scrollTop);
+    };
+    el?.addEventListener("scroll", handleScroll);
+    return () => el?.removeEventListener("scroll", handleScroll);
+  }, []);
 
     useEffect(() => {
         if (!catalog) {
@@ -193,9 +222,11 @@ Scroll
         const filteredProducts = [];
         for (let product of products) {
             for (let searchStringVariant of searchArray) {
-                if (product.title.toLowerCase().includes(searchStringVariant.toLowerCase())) {
-                    filteredProducts.push(product);
-                }
+              if (
+                  product.title.toLowerCase().includes(searchStringVariant.toLowerCase()) ||
+                    (product.barcode && product.barcode === searchStringVariant)
+                  )
+                  {filteredProducts.push(product);}
             }
         }
         return filteredProducts;
